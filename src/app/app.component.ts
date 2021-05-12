@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RootService } from './root.service'
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ndsapp';
+
+  constructor(public root: RootService) { }
+
+   ngOnInit(): void {
+    this.root.getList().subscribe((result)=>{
+
+      console.log("dataSource", result);
+
+     })
+
+
+  }
 }
