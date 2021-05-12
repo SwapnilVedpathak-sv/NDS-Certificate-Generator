@@ -18,7 +18,7 @@ require('dotenv').config();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
-app.use(express.static('./dist/dream-house'))
+app.use(express.static('./dist/ndsapp'))
 app.use(cors({origin: '*'}))
 app.use(header)
 app.use(compression())
