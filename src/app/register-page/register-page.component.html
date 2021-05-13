@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <div class="signin-content">
+    <mat-card>
+      <mat-card-content>
+        <h1>Register</h1>
+        <p class="welcomeHeading">Welcome!!<br><br> Please Create Your Account</p>
+        <form [formGroup]="authForm">
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="isValid('email')">
+              Please enter your email
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="text" placeholder="Username" formControlName="username" required>
+            <mat-error *ngIf="isValid('username')">
+              Please enter your username
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Password" formControlName="password" required>
+            <mat-error *ngIf="isValid('password')">
+              Please enter your password
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Re-enter Password" formControlName="cnfpass" required>
+            <mat-error *ngIf="isValid('cnfpass')">
+              Please re-enter your password
+            </mat-error>
+          </mat-form-field>
+          <button mat-stroked-button type="submit" (click)="register()">Register</button>
+        </form>
+        <h1>{{successMsg}}</h1>
+        <span routerLink="/login"><p>Already have an account?</p>Login</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

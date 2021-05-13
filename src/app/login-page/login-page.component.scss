@@ -1,0 +1,46 @@
+.wrapper{
+	background: #50a3a2;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+mat-card {
+  max-width: 350px;
+  margin: 2em auto;
+  text-align: center;
+  opacity: 0.9;
+  height: 550px;
+}
+.signin-content {
+  padding: 60px 1rem;
+  padding-top: 1% !important;
+}
+.full-width-input {
+  width: 100%;
+}
+input{
+  font-size: 20px;
+}
+h1{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left !important;
+  margin-bottom: 12% !important;
+}
+.welcomeHeading{
+  font-size: 20px;
+  text-align: left !important;
+}
+button{
+  font-size: 17px;
+  margin-top: 15%;
+  width: 70%;
+  margin-bottom: 18%;
+}
+form{
+  margin-top: 12% !important;
+}
