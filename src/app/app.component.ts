@@ -1,24 +1,19 @@
 import { Component } from '@angular/core';
-import { RootService } from './root.service'
-
+import { RootService } from './root.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'ndsapp';
 
-  constructor(public root: RootService) { }
+  constructor(public root: RootService) {}
 
-   ngOnInit(): void {
-    this.root.getList().subscribe((result)=>{
-
-      console.log("dataSource", result);
-
-     })
-
-
+  ngOnInit(): void {
+    this.root.getList().subscribe((result) => {
+      console.log('dataSource', result);
+    });
   }
 }
