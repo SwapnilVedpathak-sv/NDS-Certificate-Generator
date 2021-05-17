@@ -57,7 +57,7 @@ __webpack_require__.r(__webpack_exports__);
 class RootService {
     constructor(http) {
         this.http = http;
-        this.baseUrl = 'http://localhost:8000';
+        this.baseUrl = '';
         this.getAllCertificate = '/ndsCertificateData';
         this.register = '/register';
         this.login = '/login';
