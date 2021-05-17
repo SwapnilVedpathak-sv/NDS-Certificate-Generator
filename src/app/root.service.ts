@@ -8,18 +8,23 @@ export class RootService {
 
   constructor(public http: HttpClient) { }
 
+  readonly baseURL = ''
+  readonly getAllCertificate = '/ndsCertificateData'
+  readonly register = '/register'
+  readonly login = '/login'
+
   getList(){
-    return this.http.get(`http://localhost:8000/ndsCertificateData`)
+    return this.http.get(`${this.baseURL}${this.getAllCertificate}`)
    }
 
    registerUser(body:any){
-      return this.http.post('http://localhost:8000/register', body, {
+      return this.http.post(`${this.baseURL}${this.register}`, body, {
         observe:'body'
       })
    }
 
    loginUser(body:any){
-      return this.http.post('http://localhost:8000/login', body, {
+      return this.http.post(`${this.baseURL}${this.login}`, body, {
         observe:'body'
       })
    }
