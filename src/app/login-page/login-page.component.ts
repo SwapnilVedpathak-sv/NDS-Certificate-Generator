@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RootService } from '../root.service'
 
 @Component({
@@ -36,12 +36,4 @@ export class LoginPageComponent implements OnInit {
       });
     }
   }
-
-  // isFieldInvalid(field: string) {
-  //   return (
-  //     (!this.form.get(field).valid && this.form.get(field).touched) ||
-  //     (this.form.get(field).untouched && this.formSubmitAttempt)
-  //   );
-  // }
-
 }
