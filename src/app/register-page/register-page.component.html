@@ -1,6 +1,4 @@
-<div class="wrapper">
   <div class="signin-content">
-    <mat-card>
       <mat-card-content>
         <h1>Register</h1>
         <p class="welcomeHeading">Welcome!!<br><br> Please Create Your Account</p>
@@ -29,11 +27,11 @@
               Please re-enter your password
             </mat-error>
           </mat-form-field>
-          <button mat-stroked-button type="submit" (click)="register()">Register</button>
+          <button class="text-center ml-3" mat-stroked-button type="submit" (click)="register()">Register</button>
         </form>
         <h1>{{successMsg}}</h1>
-        <span routerLink="/login"><p>Already have an account?</p>Login</span>
+        <div class="text-center">
+          <span  routerLink="/login"><p>Already have an account?</p>Login</span>
+        </div>
       </mat-card-content>
-    </mat-card>
   </div>
-</div>

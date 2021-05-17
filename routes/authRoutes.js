@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const authModel = require('../models/authModel');
 
-router.post('/', function(req,res,next){
+router.post('/register', function(req,res,next){
   const authUser = new authModel({
     email:req.body.email,
     username: req.body.username,
@@ -19,6 +20,30 @@ router.post('/', function(req,res,next){
   promise.catch(function(err){
     return res.status(501).json({message: 'Error registering user'})
   })
+})
+
+router.post('/login', function(req,res,next){
+  let promise = authModel.findOne({email:req.body.email}).exec();
+
+  promise.then(function(doc){
+    if(doc){
+      if(doc.isValid(req.body.password)){
+        let token = jwt.sign({username:doc.username}, 'secret', {expiresIn: "3h"});
+
+        return res.status(200).json(token);
+      }
+      else{
+        return res.status(501).json({message:"Invalid Password!!"});
+      }
+    }
+    else{
+      return res.status(501).json({message:"User is not registered!!"});
+    }
+  });
+
+  promise.catch(function(err){
+    return res.status(501).json({message:"Something went wrong!!! Please check your credentials"})
+  });
 })
 
 module.exports = router;

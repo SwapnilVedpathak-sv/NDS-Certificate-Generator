@@ -17,4 +17,10 @@ export class RootService {
         observe:'body'
       })
    }
+
+   loginUser(body:any){
+      return this.http.post('http://localhost:8000/login', body, {
+        observe:'body'
+      })
+   }
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { RootService } from '../root.service'
 
 @Component({
   selector: 'app-login-page',
@@ -8,29 +9,39 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
 
-  form:any = FormGroup;
-  private formSubmitAttempt!: boolean;
+  loginForm:any = FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    // private authService: AuthService
-  ) {}
-
-  ngOnInit() {
-    this.form = this.fb.group({
-      userName: ['', Validators.required],
-      password: ['', Validators.required]
+  constructor(private root: RootService) {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
     });
   }
 
-  isFieldInvalid(field: string) {
-    return (
-      (!this.form.get(field).valid && this.form.get(field).touched) ||
-      (this.form.get(field).untouched && this.formSubmitAttempt)
-    );
+  ngOnInit() {}
+
+  isValid(controlName:any){
+    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
   }
 
-  onSubmit() {
-
+  loginUser(){
+    console.log(this.loginForm.value);
+    if(this.loginForm.valid){
+      this.root.loginUser(this.loginForm.value).subscribe(data => {
+        console.log(data)
+        localStorage.setItem("token", data.toString())
+      },
+      error => {
+        console.log("something went wrong")
+      });
+    }
   }
+
+  // isFieldInvalid(field: string) {
+  //   return (
+  //     (!this.form.get(field).valid && this.form.get(field).touched) ||
+  //     (this.form.get(field).untouched && this.formSubmitAttempt)
+  //   );
+  // }
+
 }

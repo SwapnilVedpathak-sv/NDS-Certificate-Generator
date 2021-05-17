@@ -1,27 +1,27 @@
 <div class="wrapper">
   <div class="signin-content">
-    <mat-card>
       <mat-card-content>
         <h1>Login</h1>
         <p class="welcomeHeading">Welcome!!<br><br> Please Login to Your Account</p>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm">
 
           <mat-form-field class="full-width-input">
-            <input matInput placeholder="User" formControlName="userName" required>
-            <mat-error *ngIf="isFieldInvalid('userName')">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="isValid('email')">
               Please inform your user name
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input">
             <input matInput type="password" placeholder="Password" formControlName="password" required>
-            <mat-error *ngIf="isFieldInvalid('userName')">
+            <mat-error *ngIf="isValid('password')">
               Please inform your password
             </mat-error>
           </mat-form-field>
-          <button mat-stroked-button  type="submit">Login</button>
+          <button class="text-center ml-3" mat-stroked-button type="submit" (click)="loginUser()">Login</button>
         </form>
-        <span routerLink="/register"><p>Don't have an account?</p>Register</span>
+        <div class="text-center mt-5">
+          <span routerLink="/register"><p>Don't have an account?</p>Register</span>
+        </div>
       </mat-card-content>
-    </mat-card>
   </div>
 </div>

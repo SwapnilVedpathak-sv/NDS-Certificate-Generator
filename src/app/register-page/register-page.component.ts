@@ -51,9 +51,11 @@ export class RegisterPageComponent implements OnInit {
 
   register(){
     console.log("authForm", this.authForm.value)
-    this.root.registerUser(this.authForm.value).subscribe(
-      data => this.successMsg = "Registration Success",
-      err => this.successMsg = "Could not register"
-    );
+    if(this.authForm.valid){
+      this.root.registerUser(this.authForm.value).subscribe(
+        data => this.successMsg = "Registration Success",
+        err => this.successMsg = "Could not register"
+      );
+    }
   }
 }

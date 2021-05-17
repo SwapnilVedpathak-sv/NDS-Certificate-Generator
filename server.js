@@ -23,7 +23,8 @@ app.use(express.static('./dist/ndsapp'))
 app.use(cors({origin: '*'}))
 app.use(header)
 app.use(compression())
-app.use('/register', authRouter)
+app.use('/', authRouter)
+app.use('/', authRouter)
 // var storage = multer.diskStorage({
 //     destination: (req, file, callback) => {
 //         callback(null, "images");
