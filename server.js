@@ -26,6 +26,10 @@ app.use(compression())
 app.use('/', authRouter)
 app.use('/', authRouter)
 
+app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, './src', 'index.html'));
+})
+
 // var storage = multer.diskStorage({
 //     destination: (req, file, callback) => {
 //         callback(null, "images");
@@ -88,9 +92,9 @@ app.get("/ndsCertificateData", async( req,res ) => {
     try{
         const getAllData = await CertificateGenerator.find();
         // console.log(getExpencesData);
-        res.send(getAllData);
+        res.status(200).send(getAllData);
     }catch(e){
-        res.send(e);
+        res.status(501).send(e);
     }
 })
 

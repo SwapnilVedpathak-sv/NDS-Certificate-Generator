@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const authModel = require('../models/authModel');
 
-router.post('/registerUser', function(req,res,next){
+router.post("/registerUser", (req,res,next) => {
   const authUser = new authModel({
     email:req.body.email,
     username: req.body.username,
@@ -13,19 +13,19 @@ router.post('/registerUser', function(req,res,next){
 
   let promise = authUser.save();
 
-  promise.then(function(doc){
+  promise.then((doc) => {
     return res.status(201).json(doc)
   })
 
-  promise.catch(function(err){
+  promise.catch((err) => {
     return res.status(501).json({message: 'Error registering user'})
   })
 })
 
-router.post('/loginUser', function(req,res,next){
+router.post("/loginUser", (req,res,next) => {
   let promise = authModel.findOne({email:req.body.email}).exec();
 
-  promise.then(function(doc){
+  promise.then((doc) => {
     if(doc){
       if(doc.isValid(req.body.password)){
         let token = jwt.sign({username:doc.username}, 'secret', {expiresIn: "3h"});
@@ -41,7 +41,7 @@ router.post('/loginUser', function(req,res,next){
     }
   });
 
-  promise.catch(function(err){
+  promise.catch((err) => {
     return res.status(501).json({message:"Something went wrong!!! Please check your credentials"})
   });
 })
