@@ -1,27 +1,34 @@
-<div class="wrapper">
-  <div class="signin-content">
-      <mat-card-content>
-        <h1>Login</h1>
-        <p class="welcomeHeading">Welcome!!<br><br> Please Login to Your Account</p>
-        <form [formGroup]="loginForm">
+<div class="loginPage headerBtn">
+  <button mat-stroked-button routerLink="/login" class="headingLoginBtn">Login</button>
+  <button mat-stroked-button routerLink="/register" class="headingRegisterBtn">Register</button>
+</div>
 
-          <mat-form-field class="full-width-input">
-            <input matInput placeholder="Email" formControlName="email" required>
-            <mat-error *ngIf="isValid('email')">
-              Please inform your user name
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="full-width-input">
-            <input matInput type="password" placeholder="Password" formControlName="password" required>
-            <mat-error *ngIf="isValid('password')">
-              Please inform your password
-            </mat-error>
-          </mat-form-field>
-          <button class="text-center ml-3" mat-stroked-button type="submit" (click)="loginUser()">Login</button>
-        </form>
-        <div class="text-center mt-5">
-          <span routerLink="/register"><p>Don't have an account?</p>Register</span>
-        </div>
-      </mat-card-content>
+<div class="loginPage">
+  <div class="loginPage-content">
+    <mat-card-content>
+      <h1>Login</h1>
+      <p class="welcomeHeading">Welcome!!<br><br> Please Login to Your Account</p>
+      <form [formGroup]="loginForm">
+
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="email" required>
+          <mat-error *ngIf="isValid('email')">
+            Please inform your user name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-error *ngIf="isValid('password')">
+            Please inform your password
+          </mat-error>
+        </mat-form-field>
+        <button class="text-center ml-3 loginBtn" mat-stroked-button type="submit" (click)="loginUser()">Login</button>
+      </form>
+      <div class="text-center mt-5">
+        <span routerLink="/register">
+          <p>Don't have an account?</p>Register
+        </span>
+      </div>
+    </mat-card-content>
   </div>
 </div>

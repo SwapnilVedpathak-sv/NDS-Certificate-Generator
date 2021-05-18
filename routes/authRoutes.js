@@ -14,11 +14,11 @@ router.post("/registerUser", (req,res,next) => {
   let promise = authUser.save();
 
   promise.then((doc) => {
-    return res.status(201).json(doc)
+    return res.status(201).json({message: "User Registered Successfully!", userDetails:doc});
   })
 
   promise.catch((err) => {
-    return res.status(501).json({message: 'Error registering user'})
+    return res.status(501).json({message:'Error registering user'})
   })
 })
 
@@ -30,7 +30,7 @@ router.post("/loginUser", (req,res,next) => {
       if(doc.isValid(req.body.password)){
         let token = jwt.sign({username:doc.username}, 'secret', {expiresIn: "3h"});
 
-        return res.status(200).json(token);
+        return res.status(200).json({message: "Login Successful", token:token});
       }
       else{
         return res.status(501).json({message:"Invalid Password!!"});
