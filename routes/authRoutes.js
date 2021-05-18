@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const authModel = require('../models/authModel');
 
-router.post('/register', function(req,res,next){
+router.post('/registerUser', function(req,res,next){
   const authUser = new authModel({
     email:req.body.email,
     username: req.body.username,
@@ -22,7 +22,7 @@ router.post('/register', function(req,res,next){
   })
 })
 
-router.post('/login', function(req,res,next){
+router.post('/loginUser', function(req,res,next){
   let promise = authModel.findOne({email:req.body.email}).exec();
 
   promise.then(function(doc){

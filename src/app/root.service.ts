@@ -10,8 +10,8 @@ export class RootService {
 
   readonly baseUrl = ''
   readonly getAllCertificate = '/ndsCertificateData'
-  readonly register = '/register'
-  readonly login = '/login'
+  readonly register = '/registerUser'
+  readonly login = '/loginUser'
 
   getList(){
     return this.http.get(`${this.baseUrl}${this.getAllCertificate}`)
