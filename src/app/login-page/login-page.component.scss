@@ -53,9 +53,14 @@ form {
   padding: 60px 1rem;
   padding-top: 10px !important;
   background: #fff;
-  border-radius: 20px;
+  border-radius: 2px;
   height: 490px;
   margin-top: 10px;
-  width: 400px;
-  box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%) !important;
+  width: 360px;
+  transition: all 500ms ease-in-out;
+  box-shadow: 0 10px 38px rgb(0 0 0 / 0%), 0 15px 12px rgb(0 0 0 / 6%);
+}
+.loginPage-content:hover{
+  box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
 }
