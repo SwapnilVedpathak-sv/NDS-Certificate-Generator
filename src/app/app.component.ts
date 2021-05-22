@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { RootService } from './root.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(public root: RootService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.root.getList().subscribe((result) => {
       console.log('dataSource', result);
     });

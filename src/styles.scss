@@ -4,7 +4,6 @@ html, body { height: 100%; }
 body { margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif; }
 
 
-
 /* You can add global styles to this file, and also import other style files */
 
 html,
@@ -27,8 +26,8 @@ body {
 
 .mat-sidenav-container {
   height: 100%;
-  display: flex;
   flex: 1 1 auto;
+  display: inherit !important;
 }
 
 .mat-nav-list .mat-list-item {
@@ -53,13 +52,13 @@ body {
 .mat-sidenav-content {
   padding: 15px;
 }
-
 .mat-list-item.active {
   background: rgba(0, 0, 0, .04);
 }
 
 .mat-sidenav-content {
   padding: 25px 40px 0;
+  display: inherit !important;
 }
 
 .mat-sidenav {
@@ -121,9 +120,9 @@ table {
 
 .inner-wrapper mat-card {
   display: inline-block;
-  margin: 0 6% 0 0;
+  margin: 0 4% 0 0;
   vertical-align: top;
-  width: 44%;
+  width: 43%;
 }
 
 .full-wrapper {
@@ -133,7 +132,9 @@ table {
 .multiple-items {
   position: relative;
 }
-
+mat-sidenav-content{
+  display: inherit;
+}
 .multiple-items .tooltip-info {
   right: 0;
   top: 7px;
@@ -142,6 +143,11 @@ table {
   position: absolute;
   font-size: 20px;
 }
+.main-content{
+  margin-left: 19%;
+  margin-top: 5%;
+}
+
 
 body .push-right {
   margin-right: 10px;
@@ -166,6 +172,7 @@ body .push-right {
 
   .mat-sidenav-content {
     padding: 20px 20px 0;
+    display: inherit;
   }
 
   .misc-bottom-padding mat-label {

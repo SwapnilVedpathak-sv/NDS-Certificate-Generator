@@ -8,7 +8,7 @@ export class RootService {
 
   constructor(public http: HttpClient) { }
 
-  readonly baseUrl = 'http://localhost:8000'
+  readonly baseUrl = ''
   readonly getAllCertificate = '/ndsCertificateData'
   readonly register = '/registerUser'
   readonly login = '/loginUser'
