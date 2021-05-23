@@ -2,32 +2,14 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const authModel = require("../models/authModel");
-var generateToken = require("../models/_helper");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 
-// router.post("/registerUser", (req,res,next) => {
-//   const authUser = new authModel({
-//     email:req.body.email,
-//     username: req.body.username,
-//     password: authModel.hashPassword(req.body.password),
-//     creation_dt: Date.now()
-//   });
-
-//   let promise = authUser.save();
-
-//   promise.then((doc) => {
-//     return res.status(201).json({message: "User Registered Successfully!", userDetails:doc});
-//   })
-
-//   promise.catch((err) => {
-//     return res.status(501).json({message:'Error registering user'})
-//   })
-// })
 var today = new Date();
 var date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
-router.post("/registerUser",
+router.post(
+  "/registerUser",
   [
     body("email").isEmail(),
     body("email").not().isEmpty(),
@@ -78,7 +60,8 @@ router.post("/registerUser",
   }
 );
 
-router.post("/loginUser",
+router.post(
+  "/loginUser",
   [body("email").not().isEmpty(), body("password").not().isEmpty()],
   (req, res) => {
     // console.log('req', req.body);
@@ -106,34 +89,18 @@ router.post("/loginUser",
             res.status(401).json(error);
           }
           if (result == true) {
-            // let payload = {
-            //   email: data[0].email,
-            //   username: data[0].username,
-            //   id: data[0]._id,
-            // };
-            // const token = generateToken(payload);
-            // data[0].token = token;
-            // data[0]
-            //   .save()
-            //   .then(() => {
-            //     return res.status(200).json({
-            //       email: data[0].email,
-            //       id: data[0]._id,
-            //       token: token,
-            //     });
-            //   })
             let token = jwt.sign({ username: data[0].username }, "secret", {
-                        expiresIn: "3h",
-                      });
-                      data[0]
-                        .save()
-                        .then(() => {
-                          return res.status(200).json({
-                            email: data[0].email,
-                            id: data[0]._id,
-                            token: token,
-                          });
-                        })
+              expiresIn: "3h",
+            });
+            data[0]
+              .save()
+              .then(() => {
+                return res.status(200).json({
+                  email: data[0].email,
+                  id: data[0]._id,
+                  token: token,
+                });
+              })
               .catch((error) => {
                 return res.status(404).json({
                   error,
@@ -148,31 +115,5 @@ router.post("/loginUser",
     });
   }
 );
-
-// router.post("/loginUser", (req, res, next) => {
-//   let promise = authModel.findOne({ email: req.body.email }).exec();
-
-//   promise.then((doc) => {
-//     if (doc) {
-//       if (doc.isValid(req.body.password)) {
-//         let token = jwt.sign({ username: doc.username }, "secret", {
-//           expiresIn: "3h",
-//         });
-
-//         return res.status(200).json(token);
-//       } else {
-//         return res.status(501).json({ message: "Invalid Password!!" });
-//       }
-//     } else {
-//       return res.status(501).json({ message: "User is not registered!!" });
-//     }
-//   });
-
-//   promise.catch((err) => {
-//     return res.status(501).json({
-//       message: "Something went wrong!!! Please check your credentials",
-//     });
-//   });
-// });
 
 module.exports = router;

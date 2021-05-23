@@ -1,96 +1,52 @@
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Router } from '@angular/router';
-
-export interface Subject {
-  name: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { RootService } from '../root.service'
 
 @Component({
   selector: 'app-generate-certificate',
   templateUrl: './generate-certificate.component.html',
-  styleUrls: ['./generate-certificate.component.scss']
+  styleUrls: ['./generate-certificate.component.scss'],
 })
 export class GenerateCertificateComponent implements OnInit {
+  calibrationFrom: FormGroup;
 
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  selected = 1
-  @ViewChild('chipList', { static: true }) chipList: any;
-  @ViewChild('resetStudentForm', { static: true }) myNgForm: any;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  studentForm:any = FormGroup;
-  subjectArray: Subject[] = [];
-  SectioinArray: any = ['A', 'B', 'C', 'D', 'E'];
-
-  ngOnInit() {
-    this.submitBookForm();
+  constructor(public fb: FormBuilder, private root: RootService) {
+    this.calibrationFrom = this.fb.group({
+      customer_name: [],
+      customer_email: [],
+      customer_address: [],
+      ambient_temp: [],
+      relative_humidity: [],
+      location_of_calibration: [],
+      certificate_no: [],
+      date_of_calibration: [],
+      next_calibration_due: [],
+      calibration_method_ref_IS: [],
+      instrument_name: [],
+      instrument_id_no: [],
+      instrument_serial_no: [],
+      instrument_make_model: [],
+      instrument_type: [],
+      instrument_range: [],
+      instrument_least_count: [],
+      acceptance_criteria: [],
+      standard_instrument: [],
+      standard_instrument_identification_no: [],
+      standard_instrument_certificate_no: [],
+      standard_instrument_calibration_date: [],
+      standard_instrument_next_calibration_due: [],
+      calibration_results_calibration_points: [],
+      calibration_results_UUC_reading: [],
+      calibration_results_standard_reading: [],
+    });
   }
 
-  constructor(
-    public fb: FormBuilder,
-    private router: Router,
-    private ngZone: NgZone
-  ) { }
+  ngOnInit() {}
 
-  /* Reactive book form */
-  submitBookForm() {
-    this.studentForm = this.fb.group({
-      student_name: ['', [Validators.required]],
-      student_email: ['', [Validators.required]],
-      section: ['', [Validators.required]],
-      subjects: [this.subjectArray],
-      dob: ['', [Validators.required]],
-      gender: ['Male']
+  save() {
+    this.root.saveCalibrationCertificate(this.calibrationFrom.value).subscribe(res => {
+      console.log("Response", res)
     })
+    console.log('From Values', this.calibrationFrom.value);
   }
-
-  /* Add dynamic languages */
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    // Add language
-    if ((value || '').trim() && this.subjectArray.length < 5) {
-      this.subjectArray.push({ name: value.trim() })
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  /* Remove dynamic languages */
-  remove(subject: Subject): void {
-    const index = this.subjectArray.indexOf(subject);
-    if (index >= 0) {
-      this.subjectArray.splice(index, 1);
-    }
-  }
-
-  /* Date */
-  formatDate(e: { target: { value: string | number | Date; }; }) {
-    var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
-    this.studentForm.get('dob').setValue(convertDate, {
-      onlyself: true
-    })
-  }
-
-  /* Get errors */
-  public handleError = (controlName: string, errorName: string) => {
-    return this.studentForm.controls[controlName].hasError(errorName);
-  }
-
-  /* Submit book */
-  // submitStudentForm() {
-  //   if (this.studentForm.valid) {
-  //     this.studentApi.AddStudent(this.studentForm.value).subscribe((res: any) => {
-  //       this.ngZone.run(() => this.router.navigateByUrl('/students-list'))
-  //     });
-  //   }
-  // }
-
 }

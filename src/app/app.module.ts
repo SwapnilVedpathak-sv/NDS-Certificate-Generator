@@ -14,11 +14,11 @@ import { GenerateCertificateComponent } from './generate-certificate/generate-ce
 import { GenerateCertificateWithInDeComponent } from './generate-certificate-with-in-de/generate-certificate-with-in-de.component';
 
 // Service
-import { RootService } from './root.service'
+import { RootService } from './root.service';
 
 // Angular Material Imports
 import { MatSliderModule } from '@angular/material/slider';
-import { MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -41,9 +41,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +51,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ListOfCertificateComponent,
     GenerateCertificateComponent,
     GenerateCertificateWithInDeComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,9 +79,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MatToolbarModule,
     MatCardModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
   providers: [RootService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

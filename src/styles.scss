@@ -1,8 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif; }
-
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+}
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -13,7 +18,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .header {
@@ -53,7 +58,7 @@ body {
   padding: 15px;
 }
 .mat-list-item.active {
-  background: rgba(0, 0, 0, .04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .mat-sidenav-content {
@@ -62,7 +67,7 @@ body {
 }
 
 .mat-sidenav {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   width: 250px;
 }
 
@@ -87,7 +92,7 @@ mat-sidenav mat-icon {
   margin-right: 25px;
 }
 
-.controlers-wrapper>* {
+.controlers-wrapper > * {
   width: 100%;
   padding: 0;
 }
@@ -120,9 +125,10 @@ table {
 
 .inner-wrapper mat-card {
   display: inline-block;
-  margin: 0 4% 0 0;
+  margin: 4% 4% 0 0;
   vertical-align: top;
   width: 43%;
+  padding-bottom: 3% !important;
 }
 
 .full-wrapper {
@@ -132,7 +138,7 @@ table {
 .multiple-items {
   position: relative;
 }
-mat-sidenav-content{
+mat-sidenav-content {
   display: inherit;
 }
 .multiple-items .tooltip-info {
@@ -143,11 +149,10 @@ mat-sidenav-content{
   position: absolute;
   font-size: 20px;
 }
-.main-content{
+.main-content {
   margin-left: 19%;
   margin-top: 5%;
 }
-
 
 body .push-right {
   margin-right: 10px;
@@ -163,9 +168,7 @@ body .push-right {
   margin: 20px 0 0 0;
 }
 
-
 @media (max-width: 1024px) {
-
   .inner-wrapper mat-card {
     width: 100%;
   }

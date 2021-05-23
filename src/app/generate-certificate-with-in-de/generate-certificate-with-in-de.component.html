@@ -2,100 +2,189 @@
 
 <div class="main-content">
 
-  <!-- Title group  -->
   <div class="title-group">
     <h1 class="mat-h1">Create Certificate</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
 
-  <!-- Form -->
+
   <div class="inner-wrapper">
-    <!-- (ngSubmit)="submitStudentForm()" -->
-    <form [formGroup]="studentForm"  #resetStudentForm="ngForm" novalidate>
-      <!-- Left block -->
+
+    <form [formGroup]="calibrationFrom" (ngSubmit)="save()" #resetStudentForm="ngForm">
+
+      <!-- Left side Customer Details -->
       <mat-card>
         <div class="controlers-wrapper">
-          <!-- Name -->
+          <h2>Customer Details</h2>
+
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Customer Name" formControlName="student_name">
-            <mat-error *ngIf="handleError('student_name', 'required')">
-              You must provide a<strong> Student name</strong>
-            </mat-error>
+            <input matInput placeholder="Customer Name" formControlName="customer_name">
           </mat-form-field>
 
-          <!-- Email -->
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Student email" formControlName="student_email">
-            <mat-error *ngIf="handleError('student_email', 'required')">
-              You must provide a<strong> Student email</strong>
-            </mat-error>
+            <input matInput placeholder="Customer email" formControlName="customer_email">
           </mat-form-field>
 
-          <!-- Section -->
-          <mat-form-field>
-            <mat-label>Section</mat-label>
-            <mat-select [(value)]="selected" formControlName="section">
-              <mat-option [value]="sectioinArray" *ngFor="let sectioinArray of SectioinArray">{{sectioinArray}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="handleError('section', 'required')">
-              Section is required
-            </mat-error>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Customer address" formControlName="customer_address">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Ambient Temp." formControlName="ambient_temp">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Relative Humidity" formControlName="relative_humidity">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Location of calibration" formControlName="location_of_calibration" required>
           </mat-form-field>
         </div>
       </mat-card>
 
-      <!-- Right block -->
+      <!-- Right side Customer Details  -->
       <mat-card>
         <div class="controlers-wrapper">
-          <!-- Add subjects -->
+
           <mat-form-field class="multiple-items">
-            <mat-chip-list #chipList>
-              <mat-chip *ngFor="let subjectArray of subjectArray" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(subjectArray)">
-                {{subjectArray.name}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="Add subject" [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
-            <i class="material-icons tooltip-info" matTooltip="Enter subject name and press enter to add subjects">
-              info
-            </i>
+            <input matInput placeholder="Certificate No." formControlName="certificate_no">
           </mat-form-field>
 
-          <!-- Date of birth -->
+          <mat-form-field class="example-full-width">
+            <input matInput readonly [matDatepicker]="date_of_calibration" placeholder="Date of Calibration"
+              formControlName="date_of_calibration">
+            <mat-datepicker-toggle matSuffix [for]="date_of_calibration"></mat-datepicker-toggle>
+            <mat-datepicker #date_of_calibration></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <input matInput readonly [matDatepicker]="next_calibration_due" placeholder="Next Calibration Due"
+              formControlName="next_calibration_due">
+            <mat-datepicker-toggle matSuffix [for]="next_calibration_due"></mat-datepicker-toggle>
+            <mat-datepicker #next_calibration_due></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Calibration Method/ Ref IS" formControlName="calibration_method_ref_IS">
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- Left Side Instrument Details -->
+      <mat-card>
+        <div class="controlers-wrapper">
+          <h2>Instrument Details</h2>
+
           <mat-form-field>
-            <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob"
-              (dateChange)="formatDate($event)">
+            <input matInput placeholder="Instrument Name" formControlName="instrument_name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="I.D No" formControlName="instrument_id_no">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Serial No." formControlName="instrument_serial_no">
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- Right side Instrument Details -->
+      <mat-card>
+        <div class="controlers-wrapper">
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Make/Model" formControlName="instrument_make_model">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Type" formControlName="instrument_type">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Range" formControlName="instrument_range">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Least Count" formControlName="instrument_least_count">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Acceptance Criteria" formControlName="acceptance_criteria">
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- Left Side Standard Instrument Details -->
+      <mat-card>
+        <div class="controlers-wrapper">
+          <h2>Standard Instrument Details</h2>
+
+          <mat-form-field>
+            <input matInput placeholder="Instrument" formControlName="standard_instrument">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Identification No./Sr.no."
+              formControlName="standard_instrument_identification_no">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Certificate No." formControlName="standard_instrument_certificate_no">
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <!-- Right side Standard Instrument Details -->
+      <mat-card>
+        <div class="controlers-wrapper">
+
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" placeholder="Calibration Date"
+              formControlName="standard_instrument_calibration_date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="handleError('dob', 'required')">
-              Date of birth is required
-            </mat-error>
           </mat-form-field>
 
-          <!-- Gender -->
-          <div class="misc-bottom-padding">
-            <mat-label>Gender:</mat-label>
-            <mat-radio-group aria-label="Select an option" formControlName="gender">
-              <mat-radio-button value="Male">Male</mat-radio-button>
-              <mat-radio-button value="Female">Female</mat-radio-button>
-            </mat-radio-group>
-          </div>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="pick" placeholder="Next Calibration Due"
+              formControlName="standard_instrument_next_calibration_due">
+            <mat-datepicker-toggle matSuffix [for]="pick"></mat-datepicker-toggle>
+            <mat-datepicker #pick></mat-datepicker>
+          </mat-form-field>
         </div>
       </mat-card>
 
-      <!-- Submit & Reset -->
+      <!--Left side Calibration Results -->
       <mat-card>
-        <div class="full-wrapper button-wrapper">
-          <div class="button-wrapper">
-            <button mat-flat-button color="warn">Submit</button>
-          </div>
+        <div class="controlers-wrapper">
+          <h2>Calibration Results</h2>
+
+          <mat-form-field>
+            <input matInput placeholder="Calibration Points" formControlName="calibration_results_calibration_points">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="UUC Reading" formControlName="calibration_results_UUC_reading">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Standard Reading" formControlName="calibration_results_standard_reading">
+            <!-- <mat-error *ngIf="handleError('student_email', 'required')">
+              You must provide a<strong> Customer address</strong>
+            </mat-error> -->
+          </mat-form-field>
         </div>
       </mat-card>
+
+      <!-- Save Button -->
+      <div class="full-wrapper button-wrapper">
+        <div class="button-wrapper">
+          <button mat-flat-button color="warn">Submit</button>
+        </div>
+      </div>
+
     </form>
   </div>
-
-  </div>
+</div>
