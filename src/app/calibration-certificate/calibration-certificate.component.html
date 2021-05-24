@@ -1,0 +1,210 @@
+<!-- <img src="../../../images/nds-logo.jpg" height="42" width="42" >
+ -->
+<div  id="htmlData">
+ <div class="key-value-pair">
+  <div>
+    <p>M/s, Nviro Development Solutions<br>F-7/5, MIDC Chikalthana, Near Vertex Advertising,<br>Naregaon Main Road, Aurangabad-431006</p>
+  </div>
+
+  <div>
+    <ul>
+      <li>Certificate No.</li>
+      <li>Date of Calibration</li>
+      <li>Next Calibration Due</li>
+      <li>Calibration Method/ Ref</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>: 5785676</li>
+      <li>: 57567675</li>
+      <li>: 567577</li>
+      <li>: 567567</li>
+    </ul>
+  </div>
+ </div>
+
+  <hr>
+
+  <div>
+    <h1 class="text-center">CALIBRATION CERTIFICATE</h1>
+  </div>
+
+ <div class="key-value-pair">
+  <div>
+    <ul>
+      <li>Ambient Temprature</li>
+      <li>Relative Humidity</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>: 5785676</li>
+      <li>: 57567675</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>Location of Calibration</li>
+      <li>Condition of Instruments</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>: In Lab</li>
+      <li>: OK</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>
+        <h3>Customer Name</h3>
+      </li>
+      <li>
+        <h3>Customer Address</h3>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>
+        <h3>: Swapnil Vedpathak</h3>
+      </li>
+      <li>
+        <h3>: Manjari</h3>
+      </li>
+    </ul>
+  </div>
+ </div>
+
+<h2>Instrument Details</h2>
+
+<div class="key-value-pair">
+  <div>
+    <ul>
+      <li>Name</li>
+      <li>Id No.</li>
+      <li>Serial No.</li>
+      <li>Make/Model</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>: Digital Thermometer</li>
+      <li>: 756756</li>
+      <li>: 567567</li>
+      <li>: hnhh65756</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>Type</li>
+      <li>Range</li>
+      <li>Least Count</li>
+      <li>Acceptance Criteria</li>
+    </ul>
+  </div>
+
+  <div>
+    <ul>
+      <li>: Digital</li>
+      <li>: 7657</li>
+      <li>: 756765</li>
+      <li>: 65757</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Standerd Instrument Details</h2>
+
+<div>
+  <div>
+    <!-- <table>
+      <thead>
+        <th>Instrument</th>
+        <th>Identification No./Sr.no.</th>
+        <th>Certificate No</th>
+        <th>Calibration Date</th>
+        <th>Valid Upto</th>
+      </thead>
+    </table> -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>Instrument</th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Identification No./Sr.no.</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Certificate No</th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>Calibration Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>Valid Upto</th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+</div>
+
+
+
+
+<div class="container">
+  <div class="row">
+
+    <!-- <div class="col-md-8" id="htmlData">
+      <table class="table table-bordered">
+        <tr class="table-primary">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+        <tr *ngFor="let user of USERS">
+          <th>{{user.id}}</th>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phone}}</td>
+        </tr>
+      </table>
+    </div> -->
+
+    <div class="col-md-4 text-right">
+      <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+    </div>
+
+  </div>
+</div>

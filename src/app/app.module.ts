@@ -40,6 +40,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CalibrationCertificateComponent } from './calibration-certificate/calibration-certificate.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +55,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     GenerateCertificateComponent,
     GenerateCertificateWithInDeComponent,
     SidebarComponent,
+    CalibrationCertificateComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FormsModule,
     ReactiveFormsModule,
     // Angular Material Imports
+    MatProgressSpinnerModule,
     MatBadgeModule,
     MatRadioModule,
     MatTooltipModule,

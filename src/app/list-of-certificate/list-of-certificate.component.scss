@@ -1,0 +1,76 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 650px;
+  margin-right: 2%;
+  margin-top: 3%;
+}
+.container{
+    background-color: white;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+  background-color: rgba(255, 255, 255, 0.959);
+  height : 100vh;
+  // width: 100%;
+  padding-top: 2%;
+}
+.mat-header-cell, .mat-cell {
+  min-width: 150px;
+}
+.mat-form-field-underline{
+    background-color:transparent;
+}
+.mat-form-field-flex{
+    font-size: 14px;
+    line-height: 1em;
+    color: #555;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 8px;
+    padding: 2px;
+}
+.mat-form-field-wrapper{
+    padding-bottom: 1.25em;
+    padding-top: 1.25em;
+}
+.mat-form-field-infix{
+    border:0px;
+}
+.mat-paginator{
+    background-color: white;
+}
+.mat-row, .mat-header-row {
+    // min-width: 280px;
+    // width: 100%;
+  }
+th, td{
+  cursor: pointer;
+}
+mat-spinner {
+  margin: auto;
+}
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1){
+flex: 0 0 3%;
+}
+
+.mat-cell:nth-child(2),
+.mat-header-cell:nth-child(2){
+flex: 0 0 15%;
+}
+
+.mat-cell:nth-child(3),
+.mat-header-cell:nth-child(3){
+flex: 0 0 30%;
+}
+
+.mat-cell:nth-child(7),
+.mat-header-cell:nth-child(7){
+flex: 0 0 7%;
+}
