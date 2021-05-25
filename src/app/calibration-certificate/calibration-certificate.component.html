@@ -166,7 +166,7 @@
         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="symbol">
+      <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Valid Upto</th>
         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
       </ng-container>
@@ -203,7 +203,7 @@
     </div> -->
 
     <div class="col-md-4 text-right">
-      <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+      <button class="btn btn-success btn-block">Download PDF</button>
     </div>
 
   </div>
