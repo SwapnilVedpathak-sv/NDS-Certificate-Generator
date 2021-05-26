@@ -1,18 +1,54 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { RootService } from '../root.service';
-import { Canvas, Columns, Line, PdfMakeWrapper } from 'pdfmake-wrapper';
-import { Txt } from 'pdfmake-wrapper';
+import { jsPDF } from 'jspdf';
+import { autoTable } from 'jspdf-autotable';
+// declare let jsPDF: new () => any;
 
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
-PdfMakeWrapper.setFonts(pdfFonts);
 
-const pdf = new PdfMakeWrapper();
+// import { Canvas, Columns, ITable, Line, PdfMakeWrapper, Table } from 'pdfmake-wrapper';
+// import { Txt } from 'pdfmake-wrapper';
+
+// import * as pdfMake from 'pdfmake/build/pdfmake';
+// import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+// import { promise } from 'selenium-webdriver';
+// (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
+// PdfMakeWrapper.setFonts(pdfFonts);
+
+// const pdf = new PdfMakeWrapper();
+
+// interface dataResponce {
+//   customer_name: String,
+//   customer_email: String,
+//   customer_address: String,
+//   ambient_temp: String,
+//   relative_humidity: String,
+//   location_of_calibration: String,
+//   certificate_no: String,
+//   date_of_calibration: String,
+//   next_calibration_due: String,
+//   calibration_method_ref_IS: String,
+//   instrument_name: String,
+//   instrument_id_no: String,
+//   instrument_serial_no: String,
+//   instrument_make_model: String,
+//   instrument_type: String,
+//   instrument_range: String,
+//   instrument_least_count: String,
+//   acceptance_criteria: String,
+//   standard_instrument: String,
+//   standard_instrument_identification_no: String,
+//   standard_instrument_certificate_no: String,
+//   standard_instrument_calibration_date: String,
+//   standard_instrument_next_calibration_due: String,
+//   calibration_results_calibration_points: String,
+//   calibration_results_UUC_reading: String,
+//   calibration_results_standard_reading: String
+// }
 
 @Component({
   selector: 'app-list-of-certificate',
@@ -33,9 +69,12 @@ export class ListOfCertificateComponent {
   dataSource = new MatTableDataSource(this.collection);
   displaySpinner = false;
   certificateData: any = [];
-  pdfData: any;
-  generatedPDF: any;
 
+  // pdfData: any;
+  // generatedPDF: any;
+
+
+@ViewChild('table', {static: false}) el! : ElementRef;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
@@ -44,6 +83,7 @@ export class ListOfCertificateComponent {
 
   ngOnInit(): void {
     this.getData();
+
   }
 
   async getData() {
@@ -59,21 +99,61 @@ export class ListOfCertificateComponent {
       console.log('this.dataSourcekjhjklhkljhk', this.dataSource);
     });
   }
-  onRowClicked(row: any) {
-    console.log('Row clicked: ', row);
+
+  onRowClicked(row: any){
+    // console.log('Row clicked: ', row);
     this.certificateData = row;
-    console.log('certificateData', this.certificateData);
+    // console.log('certificateData', this.certificateData);
   }
+
+
+  makePDF(){
+    let pdf = new jsPDF();
+    pdf.text("hello", 10,10);
+    pdf.html(this.el.nativeElement,{
+      callback: (pdf)=>{
+        pdf.save('demo.pdf');
+      }
+    })
+  //   pdf.autoTable( {
+  //     theme: "plain",
+  //     startY: 45,
+  //     margin: {
+  //       top: 45
+  //     }
+
+  // })
+  pdf.save();
+}
+
+  download() {
+
+    // let doc = new jsPDF();
+
+//     doc.autoTable({html: '#table'});
+
+// // doc.output('datauri','test.pdf');
+// doc.output('datauri', { filename: 'example.pdf' })
+
+  }
+
+
+}
+
 
   // ///////////////////////////////////////////////////////////////////// PDF // /////////////////////////////////////////////////////////////////////
 
-  async generatePdf() {
-    pdf.pageMargins([ 40, 60, 40, 60 ]);
-    this.body();
-    pdf.add(
-      pdf.ln(1)
-  );
-    this.header();
+  // async generatePdf() {
+  //   const data = await this.onRowClicked(this.certificateData)
+  //   console.log("Certificate Datagfhfghfghfgjhfgjhfgh", this.certificateData)
+
+  //   pdf.pageMargins([ 40, 60, 40, 60 ]);
+  //   this.body();
+  //   pdf.add(this.createTable(data));
+  //   pdf.add(
+  //     pdf.ln(1)
+  // );
+  //   this.header();
 
 
 
@@ -134,42 +214,65 @@ export class ListOfCertificateComponent {
     // };
 
     // const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
-    pdf.create().download();
-  }
+  //   pdf.create().download();
+  // }
 
 
 
 
-  body(){
-    // pdf.add(
-    //   new Columns([ 'Hello', 'world' ]).end
-    // )
-    pdf.pageMargins([ 40, 60, 40, 60 ]);
+// createTable(data : dataResponce[]): ITable {
+//   [{}]
+//   return new Table([
+//     ['id','userid', 'title', 'completed'],
+//     // ...this.extractData(data)
+//   ]).end;
+// }
 
-    pdf.add(
-      new Columns([
-        'M/s, Nviro Development Solutions \n F-7/5, MIDC Chikalthana, Near Vertex Advertising, \n Naregaon Main Road, Aurangabad-431006', 'Certificate No \n Date Of Calibration \n Next Calibration Date \n Calibration Method/ Ref',
-        ': 2021/01/002 \n : 18/01/2021 \n : 17/01/2022 \n : NDS-023/NA '
-      ]).alignment('left').fontSize(10).end
-    );
+// extractData(data : dataResponce[]): TableRow[] {
+//     return data.map(row => row.ambient_temp)
+// }
 
-    pdf.add(
-      new Canvas([
-          new Line([0,360], [490, 360]).end
-      ]).end
-  );
+  // body(){
+  //   // pdf.add(
+  //   //   new Columns([ 'Hello', 'world' ]).end
+  //   // )
+  //   pdf.pageMargins([ 40, 60, 40, 60 ]);
+
+  //   pdf.add(
+  //     new Columns([
+  //       'M/s, Nviro Development Solutions \n F-7/5, MIDC Chikalthana, Near Vertex Advertising, \n Naregaon Main Road, Aurangabad-431006', 'Certificate No \n Date Of Calibration \n Next Calibration Date \n Calibration Method/ Ref',
+  //       `: ${this.certificateData.certificate_no} \n : ${this.certificateData.date_of_calibration} \n : ${this.certificateData.next_calibration_due} \n : ${this.certificateData.calibration_method_ref_IS}`
+  //     ]).alignment('left').fontSize(10).end
+  //   );
+
+  //   pdf.add(
+  //     new Canvas([
+  //         new Line([0,360], [490, 360]).end
+  //     ]).end
+  // );
+
+
+//   pdf.add(
+//     pdf.ln(1)
+// );
+
+//   pdf.add(new Table([
+//     ['']
+// ]).widths('*').end)
+
+
     // pdf.add(
     //   new Columns([
     //     'Certificate No \n Date Of Calibration \n Next Calibration Date \n Calibration Method/ Ref',
     //     ': 2021/01/002 \n : 18/01/2021 \n : 17/01/2022 \n : NDS-023/NA ',
     //   ]).columnGap(10).alignment('left').end
     // );
-  }
+  // }
 
-  header() {
-    pdf.pageMargins(40);
-    pdf.add(new Txt('CALIBRATION CERTIFICATE').alignment('center').bold().fontSize(20).end);
-    }
+  // header() {
+  //   pdf.pageMargins(40);
+  //   pdf.add(new Txt('CALIBRATION CERTIFICATE').alignment('center').bold().fontSize(20).end);
+  //   }
   // generatePDF(action = 'open') {
   //   console.log('invoice', this.certificateData);
   //   const docDefinition = {
@@ -288,4 +391,3 @@ export class ListOfCertificateComponent {
   //   //   pdfMake.createPdf(docDefinition).open();
   //   // }
   // }
-}

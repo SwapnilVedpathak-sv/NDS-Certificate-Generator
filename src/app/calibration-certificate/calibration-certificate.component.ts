@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+declare let jsPDF: new () => any;
 
 @Component({
   selector: 'app-calibration-certificate',
@@ -15,7 +16,16 @@ export class CalibrationCertificateComponent {
   ngOnInit(): void {
   }
 
+  download() {
 
+    let doc = new jsPDF();
+
+    doc.autoTable({html: '#htmlData'});
+
+// doc.output('datauri','test.pdf');
+doc.output('datauri', { filename: 'example.pdf' })
+doc.save();
+  }
 }
 
 const ELEMENT_DATA  = [
