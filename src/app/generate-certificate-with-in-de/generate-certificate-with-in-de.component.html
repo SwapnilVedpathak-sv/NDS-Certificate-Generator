@@ -36,10 +36,6 @@
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Relative Humidity" formControlName="relative_humidity">
           </mat-form-field>
-
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Location of calibration" formControlName="location_of_calibration" required>
-          </mat-form-field>
         </div>
       </mat-card>
 
@@ -68,6 +64,17 @@
           <mat-form-field class="multiple-items">
             <input matInput placeholder="Calibration Method/ Ref IS" formControlName="calibration_method_ref_IS">
           </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Location of Calibration</mat-label>
+            <mat-select matNativeControl required>
+              <mat-option value="volvo">Volvo</mat-option>
+              <mat-option value="saab">Saab</mat-option>
+              <mat-option value="mercedes">Mercedes</mat-option>
+              <mat-option value="audi">Audi</mat-option>
+            </mat-select>
+          </mat-form-field>
+
         </div>
       </mat-card>
 
@@ -87,16 +94,17 @@
           <mat-form-field>
             <input matInput placeholder="Serial No." formControlName="instrument_serial_no">
           </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Make/Model" formControlName="instrument_make_model">
+          </mat-form-field>
+
         </div>
       </mat-card>
 
       <!-- Right side Instrument Details -->
       <mat-card>
         <div class="controlers-wrapper">
-
-          <mat-form-field class="multiple-items">
-            <input matInput placeholder="Make/Model" formControlName="instrument_make_model">
-          </mat-form-field>
 
           <mat-form-field class="multiple-items">
             <input matInput placeholder="Type" formControlName="instrument_type">

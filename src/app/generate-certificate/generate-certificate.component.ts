@@ -8,6 +8,12 @@ import { RootService } from '../root.service'
   styleUrls: ['./generate-certificate.component.scss'],
 })
 export class GenerateCertificateComponent implements OnInit {
+  ambientTemp = "250C ± 40C";
+  relativeHumidity = "< 70% RH";
+  standard: any = null;
+  UUCReading: any = null;
+  fullScale: any = null;
+  ErrorInC:any = null;
   calibrationFrom: FormGroup;
 
   constructor(public fb: FormBuilder, private root: RootService) {
@@ -38,6 +44,8 @@ export class GenerateCertificateComponent implements OnInit {
       calibration_results_calibration_points: [],
       calibration_results_UUC_reading: [],
       calibration_results_standard_reading: [],
+      error_in_celsius: [],
+      error_in_percentage: []
     });
   }
 

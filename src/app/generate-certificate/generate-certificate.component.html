@@ -13,10 +13,9 @@
     <form [formGroup]="calibrationFrom" (ngSubmit)="save()" #resetStudentForm="ngForm">
 
       <!-- Left side Customer Details -->
+      <h2 class="heading">Customer Details</h2>
       <mat-card>
         <div class="controlers-wrapper">
-          <h2>Customer Details</h2>
-
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Customer Name" formControlName="customer_name">
           </mat-form-field>
@@ -30,15 +29,11 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Ambient Temp." formControlName="ambient_temp">
+            <input matInput placeholder="Ambient Temp." [(ngModel)]="ambientTemp" formControlName="ambient_temp">
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Relative Humidity" formControlName="relative_humidity">
-          </mat-form-field>
-
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Location of calibration" formControlName="location_of_calibration" required>
+            <input matInput placeholder="Relative Humidity" [(ngModel)]="relativeHumidity" formControlName="relative_humidity">
           </mat-form-field>
         </div>
       </mat-card>
@@ -68,14 +63,21 @@
           <mat-form-field class="multiple-items">
             <input matInput placeholder="Calibration Method/ Ref IS" formControlName="calibration_method_ref_IS">
           </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Location of Calibration</mat-label>
+            <mat-select matNativeControl required>
+              <mat-option value="In Lab">In Lab</mat-option>
+              <mat-option value="On Site">On Site</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </mat-card>
 
       <!-- Left Side Instrument Details -->
+      <h2 class="heading">Instrument Details</h2>
       <mat-card>
         <div class="controlers-wrapper">
-          <h2>Instrument Details</h2>
-
           <mat-form-field>
             <input matInput placeholder="Instrument Name" formControlName="instrument_name">
           </mat-form-field>
@@ -87,16 +89,16 @@
           <mat-form-field>
             <input matInput placeholder="Serial No." formControlName="instrument_serial_no">
           </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput placeholder="Make/Model" formControlName="instrument_make_model">
+          </mat-form-field>
         </div>
       </mat-card>
 
       <!-- Right side Instrument Details -->
       <mat-card>
         <div class="controlers-wrapper">
-
-          <mat-form-field class="multiple-items">
-            <input matInput placeholder="Make/Model" formControlName="instrument_make_model">
-          </mat-form-field>
 
           <mat-form-field class="multiple-items">
             <input matInput placeholder="Type" formControlName="instrument_type">
@@ -111,16 +113,15 @@
           </mat-form-field>
 
           <mat-form-field class="multiple-items">
-            <input matInput placeholder="Acceptance Criteria" formControlName="acceptance_criteria">
+            <input matInput type="number" [(ngModel)]="fullScale" placeholder="Acceptance Criteria" formControlName="acceptance_criteria">
           </mat-form-field>
         </div>
       </mat-card>
 
       <!-- Left Side Standard Instrument Details -->
+      <h2 class="heading">Standard Instrument Details</h2>
       <mat-card>
         <div class="controlers-wrapper">
-          <h2>Standard Instrument Details</h2>
-
           <mat-form-field>
             <input matInput placeholder="Instrument" formControlName="standard_instrument">
           </mat-form-field>
@@ -157,23 +158,38 @@
       </mat-card>
 
       <!--Left side Calibration Results -->
+      <h2 class="heading">Calibration Results</h2>
       <mat-card>
         <div class="controlers-wrapper">
-          <h2>Calibration Results</h2>
+
 
           <mat-form-field>
             <input matInput placeholder="Calibration Points" formControlName="calibration_results_calibration_points">
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="UUC Reading" formControlName="calibration_results_UUC_reading">
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Standard Reading" formControlName="calibration_results_standard_reading">
+            <input [(ngModel)]="standard" type="number" matInput placeholder="Standard Reading" formControlName="calibration_results_standard_reading">
             <!-- <mat-error *ngIf="handleError('student_email', 'required')">
               You must provide a<strong> Customer address</strong>
             </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field>
+            <input [(ngModel)]="UUCReading" type="number" matInput placeholder="UUC Reading" formControlName="calibration_results_UUC_reading">
+          </mat-form-field>
+
+        </div>
+      </mat-card>
+
+      <mat-card>
+        <div class="controlers-wrapper">
+
+          <mat-form-field>
+            <!-- <p formControlName="error_in_celsius">{{standard}}</p> -->
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput type="number" placeholder="Error In %" formControlName="error_in_percentage">{{standard - UUCReading * fullScale / 100}}
           </mat-form-field>
         </div>
       </mat-card>

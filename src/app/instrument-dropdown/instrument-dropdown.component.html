@@ -4,7 +4,7 @@
   <mat-divider></mat-divider>
   <mat-nav-list>
     <mat-list-item>
-      <p matLine routerLink="/generate-certificate">Digital Thermometer</p>
+      <p matLine routerLink="/generate-certificate" (click)="getValue($event.target.innerHTML)">Digital Thermometer</p>
     </mat-list-item>
   </mat-nav-list>
 
