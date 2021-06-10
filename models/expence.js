@@ -17,15 +17,9 @@ const certificateGenerateSchema = new mongoose.Schema({
   instrument_type: String,
   instrument_range: String,
   instrument_least_count: String,
-  acceptance_criteria: String,
-  standard_instrument: String,
-  standard_instrument_identification_no: String,
-  standard_instrument_certificate_no: String,
-  standard_instrument_calibration_date: Object,
-  standard_instrument_next_calibration_due: Object,
-  calibration_results_calibration_points: String,
-  calibration_results_UUC_reading: String,
-  calibration_results_standard_reading: String,
+  acceptance_criteria: Number,
+  calibration_result: Array,
+  standard_instrument_details: Array
 });
 
 // New Collection

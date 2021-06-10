@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { RootService } from '../root.service'
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { RootService } from '../root.service';
 
 @Component({
   selector: 'app-generate-certificate',
@@ -8,13 +8,11 @@ import { RootService } from '../root.service'
   styleUrls: ['./generate-certificate.component.scss'],
 })
 export class GenerateCertificateComponent implements OnInit {
-  ambientTemp = "250C ± 40C";
-  relativeHumidity = "< 70% RH";
-  standard: any = null;
-  UUCReading: any = null;
-  fullScale: any = null;
-  ErrorInC:any = null;
+  ambientTemp = '250C ± 40C';
+  relativeHumidity = '< 70% RH';
   calibrationFrom: FormGroup;
+  calibration_result: FormArray;
+  standard_instrument_details: FormArray;
 
   constructor(public fb: FormBuilder, private root: RootService) {
     this.calibrationFrom = this.fb.group({
@@ -36,25 +34,62 @@ export class GenerateCertificateComponent implements OnInit {
       instrument_range: [],
       instrument_least_count: [],
       acceptance_criteria: [],
-      standard_instrument: [],
-      standard_instrument_identification_no: [],
-      standard_instrument_certificate_no: [],
-      standard_instrument_calibration_date: [],
-      standard_instrument_next_calibration_due: [],
-      calibration_results_calibration_points: [],
-      calibration_results_UUC_reading: [],
-      calibration_results_standard_reading: [],
-      error_in_celsius: [],
-      error_in_percentage: []
+      calibration_result: this.fb.array([this.createCalibrationResult()]),
+      standard_instrument_details: this.fb.array([this.createStandardInstrumentDetails()]),
     });
   }
 
   ngOnInit() {}
 
+  // getFullScaleValue() {
+  //   this.FullScale = this.fullScale;
+  // }
+
+  // calculateValues() {
+  //   let ErrorInC;
+  //   let ErrorInPercent;
+  //   const errorInCelsius = this.standard - this.UUCReading;
+  //   ErrorInC = errorInCelsius.toString().slice(0, 4);
+
+  //   const errorInPercentage = (ErrorInC * this.FullScale) % 100;
+  //   ErrorInPercent = errorInPercentage.toString().slice(0, 4);
+
+  //   this.percentError = ErrorInPercent;
+  //   this.celsiusError = ErrorInC;
+  // }
+
+  createCalibrationResult() {
+    return this.fb.group({
+      calibration_results_calibration_points: [''],
+      calibration_results_UUC_reading: [''],
+      calibration_results_standard_reading: [''],
+    });
+  }
+
+  createStandardInstrumentDetails() {
+    return this.fb.group({
+      standard_instrument: [''],
+      standard_instrument_identification_no: [''],
+      standard_instrument_certificate_no: [''],
+      standard_instrument_calibration_date: [''],
+      standard_instrument_next_calibration_due: [''],
+    });
+  }
+
+  addCalibrationResult() {
+    const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
+    control.push(this.createCalibrationResult());
+  }
+
+  addStandardInstrumentDetails() {
+    const control = <FormArray>this.calibrationFrom.controls['standard_instrument_details'];
+    control.push(this.createStandardInstrumentDetails());
+  }
+
   save() {
-    this.root.saveCalibrationCertificate(this.calibrationFrom.value).subscribe(res => {
-      console.log("Response", res)
-    })
-    console.log('From Values', this.calibrationFrom.value);
+    this.root.saveCalibrationCertificate(this.calibrationFrom.value).subscribe((res) => {
+      console.log('Response', res);
+    });
+    console.log("this.calibrationFrom.value",this.calibrationFrom.value)
   }
 }
