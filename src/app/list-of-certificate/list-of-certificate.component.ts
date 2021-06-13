@@ -72,30 +72,30 @@ export class ListOfCertificateComponent {
     let docDefinition = {
       content: [
         //Header Column
-        {
-          columns: [
-            {
-              image: this.imageDataURI.ndsLogo,
-              width: 91,
-              height: 57
-            },
-            {
-              text: 'M/s, Nviro Development Solutions \n F-7/5, MIDC Chikalthana, Near Vertex Advertising, \n Naregaon Main Road, Aurangabad-431006',
-              fontSize: 10
-            },
-            {
-              text: 'Certificate No \n Date Of Calibration \n Next Calibration Date \n Calibration Method/ Ref',
-              fontSize: 10
-            },
-            {
-              text: `: ${rowData.certificate_no} \n :${dateOfCalibration} \n :${nextCalibrationDue} \n : ${rowData.calibration_method_ref_IS}`,
-              fontSize: 10,
-              alignMent: 'right'
-            }
-          ],
-          columnGap: 25,
-          margin: [0, 0, 20, 0]
-        },
+        // {
+        //   columns: [
+        //     {
+        //       image: this.imageDataURI.ndsLogo,
+        //       width: 91,
+        //       height: 57
+        //     },
+        //     {
+        //       text: 'M/s, Nviro Development Solutions \n F-7/5, MIDC Chikalthana, Near Vertex Advertising, \n Naregaon Main Road, Aurangabad-431006',
+        //       fontSize: 10
+        //     },
+        //     {
+        //       text: 'Certificate No \n Date Of Calibration \n Next Calibration Date \n Calibration Method/ Ref',
+        //       fontSize: 10
+        //     },
+        //     {
+        //       text: `: ${rowData.certificate_no} \n :${dateOfCalibration} \n :${nextCalibrationDue} \n : ${rowData.calibration_method_ref_IS}`,
+        //       fontSize: 10,
+        //       alignMent: 'right'
+        //     }
+        //   ],
+        //   columnGap: 25,
+        //   margin: [0, 0, 20, 0]
+        // },
         //Horizontal Line using SVG
         {
           svg: `<svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="500px" height="5px" xml:space="preserve">
@@ -119,20 +119,21 @@ export class ListOfCertificateComponent {
         {
           columns: [
             {
-              text: `Ambient Temp \n Relative Humidity`,
-              fontSize: 12
+              text: `Customer Name`,
+              fontSize: 12,
+              bold:true
             },
             {
-              text: `: ${rowData.ambient_temp} \n : ${rowData.relative_humidity}`,
+              text: `: ${rowData.customer_name}`,
               fontSize: 12,
               alignMent: 'right'
+            }, {
+              text: `Customer Address`,
+              fontSize: 12,
+              bold:true
             },
             {
-              text: `Location of Calibration \n Condition of Instruments`,
-              fontSize: 12
-            },
-            {
-              text: `: ${rowData.location_of_calibration} \n : Ok`,
+              text: `: ${rowData.customer_address}`,
               fontSize: 12
             },
           ]
@@ -143,25 +144,28 @@ export class ListOfCertificateComponent {
         {
           columns: [
             {
-              text: `Customer Name`,
-              fontSize: 15,
-              bold:true
+              text: `Ambient Temp \n Relative Humidity \n Location of Calibration \n Condition of Instruments`,
+              fontSize: 12
             },
             {
-              text: `: ${rowData.customer_name}`,
+              text: `: ${rowData.ambient_temp} \n : ${rowData.relative_humidity} \n : ${rowData.location_of_calibration} \n : OK`,
               fontSize: 12,
               alignMent: 'right'
-            }, {
-              text: `Customer Address`,
-              fontSize: 15,
-              bold:true
             },
             {
-              text: `: ${rowData.customer_address}`,
+              text: `Certificate No \n Date of Calibration \n Next Calibration Due \n Calibration Method/ Ref IS`,
+              fontSize: 12
+            },
+            {
+              text: `: ${rowData.certificate_no} \n : ${rowData.date_of_calibration.slice(0,10)} \n : ${rowData.next_calibration_due.slice(0,10)} \n : ${rowData.calibration_method_ref_IS}`,
               fontSize: 12
             },
           ]
         },
+        {
+          text: "\n"
+        },
+      
         {
           text: "\n"
         },
@@ -176,20 +180,20 @@ export class ListOfCertificateComponent {
         {
           columns: [
             {
-              text: `Instrument Name \n Id no. \n Serial no. \n Make/Model`,
+              text: `Instrument Name \n Instrument I.D  \n Make/Model \n Type`,
               fontSize: 12
             },
             {
-              text: `: ${rowData.instrument_name} \n : ${rowData.instrument_id_no} \n : ${rowData.instrument_serial_no} \n : ${rowData.instrument_make_model}`,
+              text: `: ${rowData.instrument_name} \n : ${rowData.instrument_id_no} \n : ${rowData.instrument_make_model} \n : ${rowData.instrument_type}`,
               fontSize: 12,
               alignMent: 'right'
             },
             {
-              text: `Type \n Range \n Least Count \n Acceptance Criteria`,
+              text: `Range \n Least Count \n Acceptance Criteria \n Department \n Location`,
               fontSize: 12
             },
             {
-              text: `: ${rowData.instrument_type} \n : ${rowData.instrument_range} \n : ${rowData.instrument_serial_no} \n : ${rowData.instrument_least_count}`,
+              text: `: ${rowData.instrument_range} \n : ${rowData.instrument_least_count} \n : ${rowData.acceptance_criteria} \n : pending \n : pending`,
               fontSize: 12
             },
           ]
@@ -212,8 +216,8 @@ export class ListOfCertificateComponent {
             widths: [ '*', '*', '*', '*', '*' ],
 
             body: [
-              [ 'Instruments', 'Identification No.', 'Certificate No', 'Calibration Date', 'Next Due Date' ],
-              [ `${rowData.standard_instrument}`, `${rowData.standard_instrument_identification_no}`, `${rowData.standard_instrument_certificate_no}`, `${rowData.standard_instrument_calibration_date.slice(0,10)}`, `${rowData.standard_instrument_next_calibration_due.slice(0,10)}` ],
+              [ 'Instruments', 'Identification No./Sr.no.', 'Certificate No', 'Cal. Date', 'Valid up to' ],
+              [ `${rowData.standard_instrument_details.standard_instrument}`, `${rowData.standard_instrument_identification_no}`, `${rowData.standard_instrument_certificate_no}`, `${rowData.standard_instrument_calibration_date.slice(0,10)}`, `${rowData.standard_instrument_next_calibration_due.slice(0,10)}` ],
               [ 'Bold value', 'Val 2', 'Val 3', 'Val 4', 'jkghd' ]
             ]
           }

@@ -41,6 +41,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { UpdateCertificateComponent } from './update-certificate/update-certificate.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ListOfCertificateComponent,
     GenerateCertificateComponent,
     GenerateCertificateWithInDeComponent,
-    SidebarComponent
+    SidebarComponent,
+    UpdateCertificateComponent
   ],
   imports: [
     BrowserModule,

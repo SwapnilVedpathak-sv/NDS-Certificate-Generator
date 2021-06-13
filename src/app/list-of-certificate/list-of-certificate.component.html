@@ -48,7 +48,7 @@
           <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
 
           <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" >
+            <button mat-icon-button color="accent" routerLink="/update-certificate/{{row._id}}">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
 

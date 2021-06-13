@@ -10,7 +10,7 @@
 
   <div class="inner-wrapper">
 
-    <form [formGroup]="calibrationFrom" (ngSubmit)="save()" #resetStudentForm="ngForm">
+    <form [formGroup]="calibrationFrom">
 
       <!-- Left side Customer Details -->
       <h2 class="heading">Customer Details</h2>
@@ -67,7 +67,7 @@
 
           <mat-form-field class="example-full-width">
             <mat-label>Location of Calibration</mat-label>
-            <mat-select matNativeControl required>
+            <mat-select matNativeControl required formControlName="location_of_calibration">
               <mat-option value="In Lab">In Lab</mat-option>
               <mat-option value="On Site">On Site</mat-option>
             </mat-select>
@@ -81,6 +81,19 @@
         <div class="controlers-wrapper">
           <mat-form-field>
             <input matInput placeholder="Instrument Name" formControlName="instrument_name">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Select Instrument Unit</mat-label>
+            <mat-select matNativeControl required formControlName="instrument_unit">
+              <mat-option value="°C">°C</mat-option>
+              <mat-option value="Kg/cm2">Kg/cm2</mat-option>
+              <mat-option value="mmHg">mmHg</mat-option>
+              <mat-option value="MM">MM</mat-option>
+              <mat-option value="A">A</mat-option>
+              <mat-option value="V">V</mat-option>
+              <mat-option value="mmWC">mmWC</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field>
@@ -125,7 +138,7 @@
       <div formArrayName="standard_instrument_details">
         <div *ngFor="let a of calibrationFrom.get('standard_instrument_details')['controls']; let i = index">
           <div [formGroupName]="i">
-            <h3 class="cardHeading">Standard Instrument {{i+1}}</h3>
+            <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
             <mat-card>
               <div class="controlers-wrapper">
                 <mat-form-field>
@@ -216,7 +229,7 @@
       <!-- Save Button -->
       <div class="full-wrapper button-wrapper">
         <div class="button-wrapper">
-          <button type="submit" mat-flat-button color="warn">Submit</button>
+          <button (click)="save()" mat-flat-button color="warn">Submit</button>
         </div>
       </div>
 

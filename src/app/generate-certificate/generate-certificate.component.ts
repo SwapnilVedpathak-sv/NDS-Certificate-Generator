@@ -34,6 +34,7 @@ export class GenerateCertificateComponent implements OnInit {
       instrument_range: [],
       instrument_least_count: [],
       acceptance_criteria: [],
+      instrument_unit: [],
       calibration_result: this.fb.array([this.createCalibrationResult()]),
       standard_instrument_details: this.fb.array([this.createStandardInstrumentDetails()]),
     });
@@ -91,5 +92,6 @@ export class GenerateCertificateComponent implements OnInit {
       console.log('Response', res);
     });
     console.log("this.calibrationFrom.value",this.calibrationFrom.value)
+    this.calibrationFrom.reset();
   }
 }

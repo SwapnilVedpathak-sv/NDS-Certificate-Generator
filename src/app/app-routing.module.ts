@@ -7,6 +7,7 @@ import { InstrumentDropdownComponent } from './instrument-dropdown/instrument-dr
 import { ListOfCertificateComponent } from './list-of-certificate/list-of-certificate.component';
 import { GenerateCertificateWithInDeComponent } from './generate-certificate-with-in-de/generate-certificate-with-in-de.component';
 import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { UpdateCertificateComponent } from './update-certificate/update-certificate.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,11 +16,9 @@ const routes: Routes = [
   { path: 'home', component: DashboardComponent },
   { path: 'instrument', component: InstrumentDropdownComponent },
   { path: 'all-certificate', component: ListOfCertificateComponent },
-  {
-    path: 'in-de-certificate',
-    component: GenerateCertificateWithInDeComponent,
-  },
-  { path: 'generate-certificate', component: GenerateCertificateComponent }
+  { path: 'in-de-certificate', component: GenerateCertificateWithInDeComponent},
+  { path: 'generate-certificate', component: GenerateCertificateComponent },
+  { path: 'update-certificate/:_id', component: UpdateCertificateComponent }
 ];
 
 @NgModule({

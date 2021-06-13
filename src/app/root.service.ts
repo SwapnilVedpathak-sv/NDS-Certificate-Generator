@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class RootService {
   constructor(public http: HttpClient) {}
 
-  readonly baseUrl = '';
+  readonly baseUrl = 'http://localhost:8000';
   readonly AllCertificate = '/ndsCertificateData';
   readonly register = '/registerUser';
   readonly login = '/loginUser';
@@ -30,5 +30,13 @@ export class RootService {
 
   saveCalibrationCertificate(body: any) {
     return this.http.post(`${this.baseUrl}${this.AllCertificate}`, body);
+  }
+
+  getCurrentCertificate(id:any){
+    return this.http.get(`${this.baseUrl}${this.AllCertificate}/${id}`)
+  }
+
+  updateCalibrationCertificate(id:any,data:any){
+    return this.http.put(`${this.baseUrl}${this.AllCertificate}/${id}`,data)
   }
 }

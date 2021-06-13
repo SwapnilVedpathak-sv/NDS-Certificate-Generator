@@ -3,7 +3,7 @@
 <div class="main-content">
 
   <div class="title-group">
-    <h1 class="mat-h1">Create Certificate</h1>
+    <h1 class="mat-h1">Update Certificate</h1>
     <mat-divider fxFlex="1 0"></mat-divider>
   </div>
 
@@ -29,11 +29,11 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Ambient Temp." [(ngModel)]="ambientTemp" formControlName="ambient_temp">
+            <input matInput placeholder="Ambient Temp." formControlName="ambient_temp">
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Relative Humidity" [(ngModel)]="relativeHumidity"
+            <input matInput placeholder="Relative Humidity" 
               formControlName="relative_humidity">
           </mat-form-field>
         </div>
@@ -138,7 +138,7 @@
       <div formArrayName="standard_instrument_details">
         <div *ngFor="let a of calibrationFrom.get('standard_instrument_details')['controls']; let i = index">
           <div [formGroupName]="i">
-            <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
+            <h3 class="cardHeading">Standard Instrument {{i+1}}</h3>
             <mat-card>
               <div class="controlers-wrapper">
                 <mat-form-field>
@@ -208,6 +208,19 @@
               </div>
             </mat-card>
 
+            <mat-card>
+              <div class="controlers-wrapper">
+
+                <mat-form-field>
+                  <input matInput readonly [matDatepicker]="picker" placeholder="Calibration Date"
+                    formControlName="standard_instrument_calibration_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+            </mat-card>
+
             <!-- <mat-card>
               <div class="controlers-wrapper">
                 <mat-form-field>
@@ -229,7 +242,7 @@
       <!-- Save Button -->
       <div class="full-wrapper button-wrapper">
         <div class="button-wrapper">
-          <button (click)="save()" mat-flat-button color="warn">Submit</button>
+          <button mat-flat-button color="warn" (click)="save()">Submit</button>
         </div>
       </div>
 
