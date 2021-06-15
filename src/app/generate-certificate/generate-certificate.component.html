@@ -48,15 +48,15 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput readonly [matDatepicker]="date_of_calibration" placeholder="Date of Calibration"
-              formControlName="date_of_calibration">
+            <input matInput  [matDatepicker]="date_of_calibration" placeholder="Date of Calibration"
+              formControlName="date_of_calibration" required>
             <mat-datepicker-toggle matSuffix [for]="date_of_calibration"></mat-datepicker-toggle>
             <mat-datepicker #date_of_calibration></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput readonly [matDatepicker]="next_calibration_due" placeholder="Next Calibration Due"
-              formControlName="next_calibration_due">
+            <input matInput [matDatepicker]="next_calibration_due" placeholder="Next Calibration Due"
+            formControlName="next_calibration_due"  required>
             <mat-datepicker-toggle matSuffix [for]="next_calibration_due"></mat-datepicker-toggle>
             <mat-datepicker #next_calibration_due></mat-datepicker>
           </mat-form-field>
@@ -129,6 +129,14 @@
           <mat-form-field class="multiple-items">
             <input matInput type="number" placeholder="Acceptance Criteria" formControlName="acceptance_criteria">
           </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput type="text" placeholder="Department" formControlName="instrument_department">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput type="text" placeholder="Location" formControlName="instrument_location">
+          </mat-form-field>
         </div>
       </mat-card>
 
@@ -161,15 +169,15 @@
               <div class="controlers-wrapper">
 
                 <mat-form-field>
-                  <input matInput readonly [matDatepicker]="picker" placeholder="Calibration Date"
-                    formControlName="standard_instrument_calibration_date">
+                  <input matInput [matDatepicker]="picker" placeholder="Calibration Date"
+                    formControlName="standard_instrument_calibration_date" required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field>
-                  <input matInput readonly [matDatepicker]="pick" placeholder="Next Calibration Due"
-                    formControlName="standard_instrument_next_calibration_due">
+                  <input matInput [matDatepicker]="pick" placeholder="Next Calibration Due"
+                    formControlName="standard_instrument_next_calibration_due" required>
                   <mat-datepicker-toggle matSuffix [for]="pick"></mat-datepicker-toggle>
                   <mat-datepicker #pick></mat-datepicker>
                 </mat-form-field>

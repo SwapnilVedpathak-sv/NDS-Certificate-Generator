@@ -19,6 +19,9 @@ const certificateGenerateSchema = new mongoose.Schema({
   instrument_least_count: String,
   acceptance_criteria: Number,
   instrument_unit: String,
+  instrument_department: String,
+  instrument_location: String,
+  checkedFormType: String,
   calibration_result: Array,
   standard_instrument_details: Array
 });

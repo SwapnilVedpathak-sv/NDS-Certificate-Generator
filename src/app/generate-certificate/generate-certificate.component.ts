@@ -35,12 +35,19 @@ export class GenerateCertificateComponent implements OnInit {
       instrument_least_count: [],
       acceptance_criteria: [],
       instrument_unit: [],
+      instrument_department: [],
+      instrument_location: [],
       calibration_result: this.fb.array([this.createCalibrationResult()]),
       standard_instrument_details: this.fb.array([this.createStandardInstrumentDetails()]),
+      checkedFormType: "withoutIncrement"
     });
   }
 
   ngOnInit() {}
+
+
+
+
 
   // getFullScaleValue() {
   //   this.FullScale = this.fullScale;

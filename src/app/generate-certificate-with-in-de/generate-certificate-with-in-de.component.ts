@@ -37,6 +37,7 @@ export class GenerateCertificateWithInDeComponent implements OnInit {
       instrument_unit: [],
       calibration_result: this.fb.array([this.createCalibrationResult()]),
       standard_instrument_details: this.fb.array([this.createStandardInstrumentDetails()]),
+      checkedFormType: "withIncrement"
     });
   }
 
@@ -63,7 +64,8 @@ export class GenerateCertificateWithInDeComponent implements OnInit {
     return this.fb.group({
       calibration_results_calibration_points: [''],
       calibration_results_UUC_reading: [''],
-      calibration_results_standard_reading: [''],
+      calibration_results_standard_reading_increasing: [''],
+      calibration_results_standard_reading_decreasing: [''],
     });
   }
 
