@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RootService } from '../root.service';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login-page',
@@ -21,7 +22,9 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+  }
 
   isValid(controlName:any){
     return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
@@ -37,25 +40,20 @@ export class LoginPageComponent implements OnInit {
         this.collections = data;
         console.log("DID", this.collections.token)
         localStorage.setItem("token", this.collections.token.toString())
+        Swal.fire({
+          text: 'Login Successful !',
+          timer: 1000,
+        })
         this.router.navigate(['home']);
       },
         error => {
-          // this.loading = false;
           console.log(error);
-          // console.log("error", error.error.error);
-          // this.errorMsg = error.error.error
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${error.error.error}`
+          })
         });
-      // this.root.loginUser(this.loginForm.value).subscribe(data => {
-      //   console.log(data)
-      //   // let getData = JSON.parse(JSON.stringify(data.token))
-      //   // let getData = data.json();
-      //   // this.token = data['token']
-      //   console.log("data.token", data)
-      //   localStorage.setItem("token", data.toString())
-      // },
-      // error => {
-      //   console.log("something went wrong")
-      // });
     }
   }
 }

@@ -87,7 +87,12 @@ export class ListOfCertificateComponent {
     if (rowData.checkedFormType === "withoutIncrement") {
 
       let i;
+      var rows = [];
+      var row = [];
       const acceptance_criteria = rowData.acceptance_criteria;
+
+      row.push([{ text: `Calibration Point (${rowData.instrument_unit})`, fontSize: 10 }, { text: `UUC Reading (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Standard Reading (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Error In (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Error In (%)`, fontSize: 10 }]);
+
 
       for (i in this.certificateData.calibration_result) {
 
@@ -102,7 +107,12 @@ export class ListOfCertificateComponent {
         // Calculate Error in Percentage
         const errorInPercentage = (this.ErrorInC * acceptance_criteria) % 100;
         this.ErrorInPercent = errorInPercentage.toString().slice(0, 4);
+
+        row.push([{ text: `${this.CalibrationPoints}`, fontSize: 10 }, { text: `${this.UUCReading}`, fontSize: 10 }, { text: `${this.StandardReading}`, fontSize: 10 }, { text: `${this.ErrorInC}`, fontSize: 10 }, { text: `${this.ErrorInPercent}`, fontSize: 10 }]);
+
       }
+
+      rows.push([{ text: `Instruments`, fontSize: 10 }, { text: `Identification No./Sr.no.`, fontSize: 10 }, { text: `Certificate No`, fontSize: 10 }, { text: `Cal. Date`, fontSize: 10 }, { text: `Valid up to`, fontSize: 10 }]);
 
       for (i in this.certificateData.standard_instrument_details) {
 
@@ -111,6 +121,8 @@ export class ListOfCertificateComponent {
         this.standard_instrument_certificate_no = this.certificateData.standard_instrument_details[i].standard_instrument_certificate_no
         this.standard_instrument_identification_no = this.certificateData.standard_instrument_details[i].standard_instrument_identification_no
         this.standard_instrument_next_calibration_due = this.certificateData.standard_instrument_details[i].standard_instrument_next_calibration_due
+
+        rows.push([{ text: `${this.standard_instrument}`, fontSize: 10 }, { text: `${this.standard_instrument_identification_no}`, fontSize: 10 }, { text: `${this.standard_instrument_certificate_no}`, fontSize: 10 }, { text: `${this.standard_instrument_calibration_date?.slice(0, 10)}`, fontSize: 10 }, { text: `${this.standard_instrument_next_calibration_due?.slice(0, 10)}`, fontSize: 10 }]);
       }
 
       let docDefinition = {
@@ -209,10 +221,7 @@ export class ListOfCertificateComponent {
             table: {
               widths: ['*', '*', '*', '*', '*'],
 
-              body: [
-                [{ text: `Instruments`, fontSize: 10 }, { text: `Identification No./Sr.no.`, fontSize: 10 }, { text: `Certificate No`, fontSize: 10 }, { text: `Cal. Date`, fontSize: 10 }, { text: `Valid up to`, fontSize: 10 }],
-                [{ text: `${this.standard_instrument}`, fontSize: 10 }, { text: `${this.standard_instrument_identification_no}`, fontSize: 10 }, { text: `${this.standard_instrument_certificate_no}`, fontSize: 10 }, { text: `${this.standard_instrument_calibration_date?.slice(0, 10)}`, fontSize: 10 }, { text: `${this.standard_instrument_next_calibration_due?.slice(0, 10)}`, fontSize: 10 }]
-              ]
+              body: rows
             }
           },
           {
@@ -232,10 +241,7 @@ export class ListOfCertificateComponent {
           {
             table: {
               widths: ['*', '*', '*', '*', '*'],
-              body: [
-                [{ text: `Calibration Point (${rowData.instrument_unit})`, fontSize: 10 }, { text: `UUC Reading (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Standard Reading (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Error In (${rowData.instrument_unit})`, fontSize: 10 }, { text: `Error In (%)`, fontSize: 10 }],
-                [{ text: `${this.CalibrationPoints}`, fontSize: 10 }, { text: `${this.UUCReading}`, fontSize: 10 }, { text: `${this.StandardReading}`, fontSize: 10 }, { text: `${this.ErrorInC}`, fontSize: 10 }, { text: `${this.ErrorInPercent}`, fontSize: 10 }]
-              ]
+              body: row
             }
           },
           {
@@ -310,7 +316,13 @@ export class ListOfCertificateComponent {
     if (rowData.checkedFormType === "withIncrement") {
 
       let i;
+      var rows = [];
+      var row = [];
       const acceptance_criteria = rowData.acceptance_criteria;
+
+      row.push([{ text: `Calibration Point (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `UUC Reading (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `Standard Reading (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2 }, '', { text: `Error In (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2}, '', { text: `Error In (%)`, fontSize: 10, colSpan: 2 }, ''],
+                ['', '', 'Increment', 'Decrement','Increment', 'Decrement','Increment', 'Decrement',]
+      );
 
       for (i in this.certificateData.calibration_result) {
 
@@ -338,6 +350,21 @@ export class ListOfCertificateComponent {
         const errorInPercentageDecrement = (this.ErrorInCDecrement * acceptance_criteria) % 100;
         this.ErrorInPercentDecrement = errorInPercentageDecrement.toString().slice(0, 4);
 
+        row.push([{ text: `${this.CalibrationPoints}`, fontSize: 10 }, { text: `${this.UUCReading}`, fontSize: 10 }, { text: `${this.StandardIncresingReading}`, fontSize: 10 }, { text: `${this.StandardDecresingReading}`, fontSize: 10 }, { text: `${this.ErrorInCIncrement}`, fontSize: 10 },  { text: `${this.ErrorInCDecrement}`, fontSize: 10 }, { text: `${this.ErrorInPercentIncrement}`, fontSize: 10 }, { text: `${this.ErrorInPercentDecrement}`, fontSize: 10 }]);
+
+      }
+
+      rows.push([{ text: `Instruments`, fontSize: 10 }, { text: `Identification No./Sr.no.`, fontSize: 10 }, { text: `Certificate No`, fontSize: 10 }, { text: `Cal. Date`, fontSize: 10 }, { text: `Valid up to`, fontSize: 10 }]);
+
+      for (i in this.certificateData.standard_instrument_details) {
+
+        this.standard_instrument = this.certificateData.standard_instrument_details[i].standard_instrument
+        this.standard_instrument_calibration_date = this.certificateData.standard_instrument_details[i].standard_instrument_calibration_date
+        this.standard_instrument_certificate_no = this.certificateData.standard_instrument_details[i].standard_instrument_certificate_no
+        this.standard_instrument_identification_no = this.certificateData.standard_instrument_details[i].standard_instrument_identification_no
+        this.standard_instrument_next_calibration_due = this.certificateData.standard_instrument_details[i].standard_instrument_next_calibration_due
+
+        rows.push([{ text: `${this.standard_instrument}`, fontSize: 10 }, { text: `${this.standard_instrument_identification_no}`, fontSize: 10 }, { text: `${this.standard_instrument_certificate_no}`, fontSize: 10 }, { text: `${this.standard_instrument_calibration_date?.slice(0, 10)}`, fontSize: 10 }, { text: `${this.standard_instrument_next_calibration_due?.slice(0, 10)}`, fontSize: 10 }]);
       }
 
       let dd = {
@@ -435,11 +462,7 @@ export class ListOfCertificateComponent {
           {
             table: {
               widths: ['*', '*', '*', '*', '*'],
-
-              body: [
-                [{ text: `Instruments`, fontSize: 10 }, { text: `Identification No./Sr.no.`, fontSize: 10 }, { text: `Certificate No`, fontSize: 10 }, { text: `Cal. Date`, fontSize: 10 }, { text: `Valid up to`, fontSize: 10 }],
-                [{ text: `${this.standard_instrument}`, fontSize: 10 }, { text: `${this.standard_instrument_identification_no}`, fontSize: 10 }, { text: `${this.standard_instrument_certificate_no}`, fontSize: 10 }, { text: `${this.standard_instrument_calibration_date?.slice(0, 10)}`, fontSize: 10 }, { text: `${this.standard_instrument_next_calibration_due?.slice(0, 10)}`, fontSize: 10 }]
-              ]
+              body: rows
             }
           },
           {
@@ -461,11 +484,7 @@ export class ListOfCertificateComponent {
             table: {
               headerRows: 2,
               widths: ['*', '*', '*', '*', '*','*','*','*',],
-              body: [
-                [{ text: `Calibration Point (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `UUC Reading (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `Standard Reading (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2 }, '', { text: `Error In (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2}, '', { text: `Error In (%)`, fontSize: 10, colSpan: 2 }, ''],
-                ['', '', 'Increment', 'Decrement','Increment', 'Decrement','Increment', 'Decrement',],
-                [{ text: `${this.CalibrationPoints}`, fontSize: 10 }, { text: `${this.UUCReading}`, fontSize: 10 }, { text: `${this.StandardIncresingReading}`, fontSize: 10 }, { text: `${this.StandardDecresingReading}`, fontSize: 10 }, { text: `${this.ErrorInCIncrement}`, fontSize: 10 },  { text: `${this.ErrorInCDecrement}`, fontSize: 10 }, { text: `${this.ErrorInPercentIncrement}`, fontSize: 10 }, { text: `${this.ErrorInPercentDecrement}`, fontSize: 10 }]
-              ]
+              body: row
             }
           },
           {

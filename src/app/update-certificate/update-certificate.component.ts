@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { RootService } from '../root.service';
 
 @Component({
@@ -117,10 +119,22 @@ export class UpdateCertificateComponent implements OnInit {
   }
 
   save() {
-    this.root.updateCalibrationCertificate(this.router.snapshot.params._id, this.calibrationFrom.value).subscribe((res) => {
+    this.root.updateCalibrationCertificate(this.router.snapshot.params._id, this.calibrationFrom.value).pipe(first()).subscribe((res) => {
       console.log('Response', res);
+      Swal.fire({
+        title: "Success",
+        text: "Your certificate has been updated successfully !!",
+        icon: "success"
+      })
+      this.calibrationFrom.reset();
+    },
+    error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!! Someting went wrong...',
+        text: `Please try again later !!`
+      })
     });
     console.log("this.calibrationFrom.value", this.calibrationFrom.value);
-    this.calibrationFrom.reset();
   }
 }

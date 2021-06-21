@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from '../root.service'
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-register-page',
@@ -49,13 +52,48 @@ export class RegisterPageComponent implements OnInit {
   }
 
 
+  // register(){
+  //   console.log("authForm", this.authForm.value)
+  //   if(this.authForm.valid){
+  //     this.root.registerUser(this.authForm.value).pipe(first()).subscribe(data => {
+  //       console.log("data.message",data)
+  //       // User Registered Successfully!
+  //       Swal.fire({
+  //         title: "Good job!",
+  //         text: "You clicked the button!",
+  //         icon: "success"
+  //       })
+  //     },
+  //     error{
+
+  //     });
+  //   }
+    
+  // }
+
   register(){
-    console.log("authForm", this.authForm.value)
+    console.log(this.authForm.value);
     if(this.authForm.valid){
-      this.root.registerUser(this.authForm.value).subscribe(data => {
-        console.log("data.message",data)
-        // User Registered Successfully!
-      });
+      this.root.registerUser(this.authForm.value)
+      .pipe(first())
+      .subscribe(data => {
+        console.log("Ran", data);
+        Swal.fire({
+          title: "User Registered Successfully !",
+          text: "Please Login With Same E-mail",
+          icon: "success",
+          footer: '<p routerLink="/login" style=color:#0080FE>Login Here</p>'
+        })
+        this.authForm.reset();
+      },
+        error => {
+          console.log("error",error.error.error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${error.error.error}`
+          })
+        });
     }
   }
 }

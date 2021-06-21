@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import { RootService } from '../root.service';
 
 @Component({
@@ -90,10 +92,22 @@ export class GenerateCertificateWithInDeComponent implements OnInit {
   }
 
   save() {
-    this.root.saveCalibrationCertificate(this.calibrationFrom.value).subscribe((res) => {
+    this.root.saveCalibrationCertificate(this.calibrationFrom.value).pipe(first()).subscribe((res) => {
       console.log('Response', res);
+      Swal.fire({
+        title: "Success",
+        text: "Your certificate has been generated successfully !!",
+        icon: "success"
+      })
+      this.calibrationFrom.reset();
+    },
+    error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!! Someting went wrong...',
+        text: `Please try again later !!`
+      })
     });
     console.log("this.calibrationFrom.value",this.calibrationFrom.value)
-    this.calibrationFrom.reset();
   }
 }

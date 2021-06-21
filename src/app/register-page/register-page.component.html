@@ -10,9 +10,9 @@
       <p class="welcomeHeading">Welcome!!<br><br> Please Create Your Account</p>
       <form [formGroup]="authForm">
         <mat-form-field class="full-width-input">
-          <input matInput placeholder="Email" formControlName="email" required>
+          <input type="email" matInput placeholder="Email" formControlName="email" required>
           <mat-error *ngIf="isValid('email')">
-            Please enter your email
+            Please enter a valid email
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">

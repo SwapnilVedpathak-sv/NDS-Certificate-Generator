@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() {}
+  constructor(private router:Router) {}
 
   isExpanded = true;
   opened = true;
@@ -45,5 +47,27 @@ export class SidebarComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  clear(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to logout from application !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, LogOut !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['login']);
+       Swal.fire({
+          text: 'LogOut Successful !!',
+          timer: 1500,
+          icon: 'success'
+        })
+        localStorage.clear()
+      }
+    })
   }
 }
