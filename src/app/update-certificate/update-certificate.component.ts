@@ -12,6 +12,9 @@ import { RootService } from '../root.service';
 })
 export class UpdateCertificateComponent implements OnInit {
   certificateData: any = []
+  isIncreasing;
+  isNotIncreasing;
+  isDecreasing;
   calibrationFrom: FormGroup;
   calibration_result: FormArray;
   standard_instrument_details: FormArray;
@@ -24,6 +27,11 @@ export class UpdateCertificateComponent implements OnInit {
 
       this.certificateData = result
       console.log("All Certificate", this.certificateData)
+      console.log("this.certificateData.checkedFormType",this.certificateData.checkedFormType)
+
+      this.isIncreasing =  this.certificateData.calibration_result[0].calibration_results_standard_reading_increasing;
+      // this.isDecreasing=  this.certificateData.calibration_result[0].calibration_results_standard_reading_decreasing
+      this.isNotIncreasing = this.certificateData.calibration_result[0].calibration_results_standard_reading
 
       this.calibrationFrom = this.fb.group({
         customer_name: [this.certificateData.customer_name],
@@ -45,6 +53,8 @@ export class UpdateCertificateComponent implements OnInit {
         instrument_least_count: [this.certificateData.instrument_least_count],
         acceptance_criteria: [this.certificateData.acceptance_criteria],
         instrument_unit: [this.certificateData.instrument_unit],
+        instrument_department: [this.certificateData.instrument_department],
+        instrument_location: [this.certificateData.instrument_location],
         calibration_result: this.fb.array([]),
         standard_instrument_details: this.fb.array([]),
       });
@@ -68,6 +78,15 @@ export class UpdateCertificateComponent implements OnInit {
     });
   }
 
+  createCalibrationInDeResult() {
+    return this.fb.group({
+      calibration_results_calibration_points: [''],
+      calibration_results_UUC_reading: [''],
+      calibration_results_standard_reading_increasing: [''],
+      calibration_results_standard_reading_decreasing: ['']
+    });
+  }
+
   createStandardInstrumentDetails() {
     return this.fb.group({
       standard_instrument: [''],
@@ -79,8 +98,13 @@ export class UpdateCertificateComponent implements OnInit {
   }
 
   addCalibrationResult() {
-    const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
-    control.push(this.createCalibrationResult());
+    if(this.certificateData.checkedFormType === "withIncrement"){
+      const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
+      control.push(this.createCalibrationInDeResult());
+    }else{
+      const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
+      control.push(this.createCalibrationResult());
+    }
   }
 
   addStandardInstrumentDetails() {
@@ -90,11 +114,21 @@ export class UpdateCertificateComponent implements OnInit {
 
   private getCalibrationResultDetails(el) {
 
-    return this.fb.group({
-      calibration_results_calibration_points: [el.calibration_results_calibration_points],
-      calibration_results_UUC_reading: [el.calibration_results_UUC_reading],
-      calibration_results_standard_reading: [el.calibration_results_standard_reading],
-    });
+    if(this.certificateData.checkedFormType === "withIncrement"){
+      return this.fb.group({
+        calibration_results_calibration_points: [el.calibration_results_calibration_points],
+        calibration_results_UUC_reading: [el.calibration_results_UUC_reading],
+        calibration_results_standard_reading_increasing: [el.calibration_results_standard_reading_increasing],
+        calibration_results_standard_reading_decreasing: [el.calibration_results_standard_reading_decreasing],
+
+      });
+    }else{
+      return this.fb.group({
+        calibration_results_calibration_points: [el.calibration_results_calibration_points],
+        calibration_results_UUC_reading: [el.calibration_results_UUC_reading],
+        calibration_results_standard_reading: [el.calibration_results_standard_reading],
+      });
+    }
   }
 
   private getStandardInstrumentDetails(el) {

@@ -52,18 +52,18 @@
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
 
-            <button mat-icon-button color="accent">
+            <button mat-icon-button color="accent" (click)="deleteCertificate(row._id)">
               <mat-icon aria-label="delete">delete</mat-icon>
             </button>
 
-            <button mat-icon-button color="accent">
+            <button mat-icon-button color="accent" (click)="generateCertificatePDF(row._id)">
               <mat-icon aria-label="get_app">get_app</mat-icon>
             </button>
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
 
       </mat-table>

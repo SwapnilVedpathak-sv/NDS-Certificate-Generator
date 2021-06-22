@@ -129,6 +129,14 @@
           <mat-form-field class="multiple-items">
             <input matInput type="number" placeholder="Acceptance Criteria" formControlName="acceptance_criteria">
           </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput type="text" placeholder="Department" formControlName="instrument_department">
+          </mat-form-field>
+
+          <mat-form-field class="multiple-items">
+            <input matInput type="text" placeholder="Location" formControlName="instrument_location">
+          </mat-form-field>
         </div>
       </mat-card>
 
@@ -139,6 +147,8 @@
         <div *ngFor="let a of calibrationFrom.get('standard_instrument_details')['controls']; let i = index">
           <div [formGroupName]="i">
             <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
+            <button mat-stroked-button color="accent" (click)="removeStandardInstrumentDetail(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button>
+
             <mat-card>
               <div class="controlers-wrapper">
                 <mat-form-field>
@@ -186,6 +196,8 @@
         <div *ngFor="let a of calibrationFrom.get('calibration_result')['controls']; let i = index">
           <div [formGroupName]="i">
             <h3 class="cardHeading">Calibration Points {{i+1}}</h3>
+            <button mat-stroked-button color="accent" (click)="removeCalibrationResult(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button>
+
             <mat-card class="calibration_result">
               <div class="controlers-wrapper">
                 <mat-form-field>

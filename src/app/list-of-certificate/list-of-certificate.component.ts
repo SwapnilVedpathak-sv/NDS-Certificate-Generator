@@ -6,6 +6,8 @@ import { RootService } from '../root.service';
 import { data } from '../configuration/image-dataURI.config'
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -14,7 +16,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./list-of-certificate.component.scss'],
 })
 export class ListOfCertificateComponent {
-  constructor(private root: RootService, public dialog: MatDialog) { }
+  constructor(private root: RootService, public dialog: MatDialog, private router:Router) { }
   imageDataURI = data;
   displayedColumns = [
     'id',
@@ -76,11 +78,34 @@ export class ListOfCertificateComponent {
     });
   }
 
-  onRowClicked(rowData: any) {
-    this.certificateData = rowData;
-    this.generatePDF("open", rowData)
-    this.generatePDFForIncrementDecrement("open", rowData)
-    console.log("rowData", rowData)
+  generateCertificatePDF(id:any){
+    this.root.getCurrentCertificate(id).subscribe((result)=>{
+      console.warn("result",result)
+
+      const rowData = result
+      this.certificateData = rowData;
+      this.generatePDF("open", rowData)
+      this.generatePDFForIncrementDecrement("open", rowData)
+    })
+  }
+
+  deleteCertificate(item:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to delete from application !!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Delete!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.root.deleteCertificate(item).subscribe((result)=>{
+          console.warn("result",result)
+        })
+        location.reload();
+      }
+    })    
   }
 
   generatePDF(action, rowData) {

@@ -47,27 +47,6 @@ export class GenerateCertificateComponent implements OnInit {
 
   ngOnInit() {}
 
-
-
-
-
-  // getFullScaleValue() {
-  //   this.FullScale = this.fullScale;
-  // }
-
-  // calculateValues() {
-  //   let ErrorInC;
-  //   let ErrorInPercent;
-  //   const errorInCelsius = this.standard - this.UUCReading;
-  //   ErrorInC = errorInCelsius.toString().slice(0, 4);
-
-  //   const errorInPercentage = (ErrorInC * this.FullScale) % 100;
-  //   ErrorInPercent = errorInPercentage.toString().slice(0, 4);
-
-  //   this.percentError = ErrorInPercent;
-  //   this.celsiusError = ErrorInC;
-  // }
-
   createCalibrationResult() {
     return this.fb.group({
       calibration_results_calibration_points: [''],
@@ -94,6 +73,16 @@ export class GenerateCertificateComponent implements OnInit {
   addStandardInstrumentDetails() {
     const control = <FormArray>this.calibrationFrom.controls['standard_instrument_details'];
     control.push(this.createStandardInstrumentDetails());
+  }
+
+  removeStandardInstrumentDetail(i: number) {
+    const control = <FormArray>this.calibrationFrom.controls['standard_instrument_details'];
+    control.removeAt(i);
+  }
+
+  removeCalibrationResult(i: number) {
+    const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
+    control.removeAt(i);
   }
 
   save() {

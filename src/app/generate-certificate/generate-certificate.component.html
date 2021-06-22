@@ -146,7 +146,10 @@
       <div formArrayName="standard_instrument_details">
         <div *ngFor="let a of calibrationFrom.get('standard_instrument_details')['controls']; let i = index">
           <div [formGroupName]="i">
-            <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
+            
+              <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
+              <!-- <button mat-stroked-button color="accent" (click)="removeStandardInstrumentDetail(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button> -->
+
             <mat-card>
               <div class="controlers-wrapper">
                 <mat-form-field>
@@ -194,6 +197,8 @@
         <div *ngFor="let a of calibrationFrom.get('calibration_result')['controls']; let i = index">
           <div [formGroupName]="i">
             <h3 class="cardHeading">Calibration Points {{i+1}}</h3>
+            <!-- <button mat-stroked-button color="accent" (click)="removeCalibrationResult(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button> -->
+
             <mat-card class="calibration_result">
               <div class="controlers-wrapper">
                 <mat-form-field>

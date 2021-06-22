@@ -37,6 +37,8 @@ export class GenerateCertificateWithInDeComponent implements OnInit {
       instrument_least_count: [],
       acceptance_criteria: [],
       instrument_unit: [],
+      instrument_department: [],
+      instrument_location: [],
       calibration_result: this.fb.array([this.createCalibrationResult()]),
       standard_instrument_details: this.fb.array([this.createStandardInstrumentDetails()]),
       checkedFormType: "withIncrement"
@@ -91,6 +93,18 @@ export class GenerateCertificateWithInDeComponent implements OnInit {
     control.push(this.createStandardInstrumentDetails());
   }
 
+
+  removeStandardInstrumentDetail(i: number) {
+    const control = <FormArray>this.calibrationFrom.controls['standard_instrument_details'];
+    control.removeAt(i);
+  }
+
+  removeCalibrationResult(i: number) {
+    const control = <FormArray>this.calibrationFrom.controls['calibration_result'];
+    control.removeAt(i);
+  }
+
+  
   save() {
     this.root.saveCalibrationCertificate(this.calibrationFrom.value).pipe(first()).subscribe((res) => {
       console.log('Response', res);

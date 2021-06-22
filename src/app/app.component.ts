@@ -11,9 +11,5 @@ export class AppComponent {
 
   constructor(public root: RootService) {}
 
-  ngOnInit() {
-    this.root.getList().subscribe((result) => {
-      console.log('dataSource', result);
-    });
-  }
+  ngOnInit() {}
 }
