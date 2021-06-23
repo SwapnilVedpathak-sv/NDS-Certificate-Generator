@@ -16,7 +16,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./list-of-certificate.component.scss'],
 })
 export class ListOfCertificateComponent {
-  constructor(private root: RootService, public dialog: MatDialog, private router:Router) { }
+  constructor(private root: RootService, public dialog: MatDialog, private router:Router) {
+   }
   imageDataURI = data;
   displayedColumns = [
     'id',
@@ -64,18 +65,20 @@ export class ListOfCertificateComponent {
     this.getData();
   }
 
-  async getData() {
+   getData() {
+   setTimeout(() => {
     this.displaySpinner = true;
-    await this.root.getList().subscribe((result) => {
-      this.displaySpinner = false;
-      this.collection = result;
-      console.log('dataSource', this.collection);
+    this.root.getList().subscribe((result) => {
+     this.displaySpinner = false;
+     this.collection = result;
+     console.log('dataSource', this.collection);
 
-      this.dataSource = new MatTableDataSource(this.collection);
-      this.dataSource.paginator = this.paginator;
-      console.log('this.dataSource', this.paginator);
-      console.log('this.dataSourcekjhjklhkljhk', this.dataSource);
-    });
+     this.dataSource = new MatTableDataSource(this.collection);
+     this.dataSource.paginator = this.paginator;
+     console.log('this.dataSource', this.paginator);
+     console.log('this.dataSourcekjhjklhkljhk', this.dataSource);
+   });
+   }, 100)
   }
 
   generateCertificatePDF(id:any){
@@ -103,9 +106,13 @@ export class ListOfCertificateComponent {
         this.root.deleteCertificate(item).subscribe((result)=>{
           console.warn("result",result)
         })
-        location.reload();
+        this.getData();      
       }
     })    
+  }
+
+  exit() {
+    // location.reload();
   }
 
   generatePDF(action, rowData) {
@@ -178,9 +185,9 @@ export class ListOfCertificateComponent {
           {
             layout: 'noBorders',
             table: {
-              widths: ['*', '*', 50, '*', '*',],
+              widths: ['*', '*'],
               body: [
-                [{ text: `Customer Name`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_name}`, fontSize: 10 }, { text: `` }, { text: `Customer Address`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_address}`, fontSize: 10 }]
+                [{ text: `Customer Name And \n Address`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_name} \n : ${rowData.customer_address}`, fontSize: 10 }]
               ]
             }
           },
@@ -204,11 +211,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Instrument Details',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -220,11 +224,11 @@ export class ListOfCertificateComponent {
               widths: ['*', '*', 50, '*', '*',],
 
               body: [
-                [{ text: `Instrument Name`, fontSize: 10 }, { text: `: ${rowData.instrument_name}`, fontSize: 10 }, { text: `` }, { text: `Least Count`, fontSize: 10 }, { text: `: ${rowData.instrument_least_count}`, fontSize: 10 }],
-                [{ text: `Instrument I.D`, fontSize: 10 }, { text: `: ${rowData.instrument_id_no}`, fontSize: 10 }, { text: `` }, { text: `Acceptance Criteria`, fontSize: 10 }, { text: `: ${rowData.acceptance_criteria}`, fontSize: 10 }],
-                [{ text: `Make/Model`, fontSize: 10 }, { text: `: ${rowData.instrument_make_model}`, fontSize: 10 }, { text: `` }, { text: `Department`, fontSize: 10 }, { text: `: ${rowData.instrument_department}`, fontSize: 10 }],
+                [{ text: `Instrument Name`, fontSize: 10 }, { text: `: ${rowData.instrument_name}`, fontSize: 10 }, { text: `` }, { text: `Range`, fontSize: 10 }, { text: `: ${rowData.instrument_range} ${rowData.instrument_unit}`, fontSize: 10 }],
+                [{ text: `Instrument I.D`, fontSize: 10 }, { text: `: ${rowData.instrument_id_no}`, fontSize: 10 }, { text: `` }, { text: `Least Count`, fontSize: 10 }, { text: `: ${rowData.instrument_least_count} ${rowData.instrument_unit}`, fontSize: 10 }],
+                [{ text: `Make/Model`, fontSize: 10 }, { text: `: ${rowData.instrument_make_model}`, fontSize: 10 }, { text: `` }, { text: `Acceptance Criteria`, fontSize: 10 }, { text: `: ± ${rowData.acceptance_criteria} ${rowData.instrument_unit}`, fontSize: 10 }],
                 [{ text: `Type`, fontSize: 10 }, { text: `: ${rowData.instrument_type}`, fontSize: 10 }, { text: `` }, { text: `Location`, fontSize: 10 }, { text: `: ${rowData.instrument_location}`, fontSize: 10 }],
-                [{ text: `Range`, fontSize: 10 }, { text: `: ${rowData.instrument_range}`, fontSize: 10 }, { text: `` }, { text: `` }, { text: `` }]
+                [{ text: ``}, { text: ``}, { text: `` }, { text: `Department`, fontSize: 10 }, { text: `: ${rowData.instrument_department}`, fontSize: 10 }]
               ]
             }
           },
@@ -232,11 +236,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Standard Instrument Details',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -253,11 +254,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Calibration Results',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -284,9 +282,6 @@ export class ListOfCertificateComponent {
             text: 'Note :',
             fontSize: 12,
             bold: true
-          },
-          {
-            text: "\n"
           },
           {
             ol: [
@@ -346,7 +341,7 @@ export class ListOfCertificateComponent {
       const acceptance_criteria = rowData.acceptance_criteria;
 
       row.push([{ text: `Calibration Point (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `UUC Reading (${rowData.instrument_unit})`, fontSize: 10, rowSpan: 2 }, { text: `Standard Reading (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2 }, '', { text: `Error In (${rowData.instrument_unit})`, fontSize: 10, colSpan: 2}, '', { text: `Error In (%)`, fontSize: 10, colSpan: 2 }, ''],
-                ['', '', 'Increment', 'Decrement','Increment', 'Decrement','Increment', 'Decrement',]
+                ['', '', { text: `Increasing`, fontSize: 10}, { text: `Decreasing`, fontSize: 10},{ text: `Increasing`, fontSize: 10}, { text: `Decreasing`, fontSize: 10}, { text: `Increasing`, fontSize: 10}, { text: `Decreasing`, fontSize: 10}]
       );
 
       for (i in this.certificateData.calibration_result) {
@@ -420,9 +415,9 @@ export class ListOfCertificateComponent {
           {
             layout: 'noBorders',
             table: {
-              widths: ['*', '*', 50, '*', '*',],
+              widths: ['*', '*'],
               body: [
-                [{ text: `Customer Name`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_name}`, fontSize: 10 }, { text: `` }, { text: `Customer Address`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_address}`, fontSize: 10 }]
+                [{ text: `Customer Name And \n Address`, fontSize: 10, bold: true }, { text: `: ${rowData.customer_name} \n : ${rowData.customer_address}`, fontSize: 10 }]
               ]
             }
           },
@@ -446,11 +441,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Instrument Details',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -462,11 +454,11 @@ export class ListOfCertificateComponent {
               widths: ['*', '*', 50, '*', '*',],
 
               body: [
-                [{ text: `Instrument Name`, fontSize: 10 }, { text: `: ${rowData.instrument_name}`, fontSize: 10 }, { text: `` }, { text: `Least Count`, fontSize: 10 }, { text: `: ${rowData.instrument_least_count}`, fontSize: 10 }],
-                [{ text: `Instrument I.D`, fontSize: 10 }, { text: `: ${rowData.instrument_id_no}`, fontSize: 10 }, { text: `` }, { text: `Acceptance Criteria`, fontSize: 10 }, { text: `: ${rowData.acceptance_criteria}`, fontSize: 10 }],
-                [{ text: `Make/Model`, fontSize: 10 }, { text: `: ${rowData.instrument_make_model}`, fontSize: 10 }, { text: `` }, { text: `Department`, fontSize: 10 }, { text: `: ${rowData.instrument_department}`, fontSize: 10 }],
+                [{ text: `Instrument Name`, fontSize: 10 }, { text: `: ${rowData.instrument_name}`, fontSize: 10 }, { text: `` }, { text: `Range`, fontSize: 10 }, { text: `: ${rowData.instrument_range} ${rowData.instrument_unit}`, fontSize: 10 }],
+                [{ text: `Instrument I.D`, fontSize: 10 }, { text: `: ${rowData.instrument_id_no}`, fontSize: 10 }, { text: `` }, { text: `Least Count`, fontSize: 10 }, { text: `: ${rowData.instrument_least_count} ${rowData.instrument_unit}`, fontSize: 10 }],
+                [{ text: `Make/Model`, fontSize: 10 }, { text: `: ${rowData.instrument_make_model}`, fontSize: 10 }, { text: `` }, { text: `Acceptance Criteria`, fontSize: 10 }, { text: `: ± ${rowData.acceptance_criteria} ${rowData.instrument_unit}`, fontSize: 10 }],
                 [{ text: `Type`, fontSize: 10 }, { text: `: ${rowData.instrument_type}`, fontSize: 10 }, { text: `` }, { text: `Location`, fontSize: 10 }, { text: `: ${rowData.instrument_location}`, fontSize: 10 }],
-                [{ text: `Range`, fontSize: 10 }, { text: `: ${rowData.instrument_range}`, fontSize: 10 }, { text: `` }, { text: `` }, { text: `` }]
+                [{ text: ``}, { text: ``}, { text: `` }, { text: `Department`, fontSize: 10 }, { text: `: ${rowData.instrument_department}`, fontSize: 10 }],
               ]
             }
           },
@@ -474,11 +466,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Standard Instrument Details',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -494,11 +483,8 @@ export class ListOfCertificateComponent {
             text: "\n"
           },
           {
-            text: "\n"
-          },
-          {
             text: 'Calibration Results',
-            fontSize: 15,
+            fontSize: 14,
             bold: true
           },
           {
@@ -527,9 +513,6 @@ export class ListOfCertificateComponent {
             text: 'Note :',
             fontSize: 12,
             bold: true
-          },
-          {
-            text: "\n"
           },
           {
             ol: [

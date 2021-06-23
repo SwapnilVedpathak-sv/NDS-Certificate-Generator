@@ -10,7 +10,7 @@ import { RootService } from '../root.service';
   styleUrls: ['./generate-certificate-with-in-de.component.scss'],
 })
 export class GenerateCertificateWithInDeComponent implements OnInit {
-  ambientTemp = '250C ± 40C';
+  ambientTemp = '25°C ± 4°C';
   relativeHumidity = '< 70% RH';
   calibrationFrom: FormGroup;
   calibration_result: FormArray;
