@@ -48,14 +48,14 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput readonly [matDatepicker]="date_of_calibration" placeholder="Date of Calibration"
+            <input matInput [matDatepicker]="date_of_calibration" placeholder="Date of Calibration"
               formControlName="date_of_calibration">
             <mat-datepicker-toggle matSuffix [for]="date_of_calibration"></mat-datepicker-toggle>
             <mat-datepicker #date_of_calibration></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-            <input matInput readonly [matDatepicker]="next_calibration_due" placeholder="Next Calibration Due"
+            <input matInput [matDatepicker]="next_calibration_due" placeholder="Next Calibration Due"
               formControlName="next_calibration_due">
             <mat-datepicker-toggle matSuffix [for]="next_calibration_due"></mat-datepicker-toggle>
             <mat-datepicker #next_calibration_due></mat-datepicker>
@@ -67,7 +67,7 @@
 
           <mat-form-field class="example-full-width">
             <mat-label>Location of Calibration</mat-label>
-            <mat-select matNativeControl required formControlName="location_of_calibration">
+            <mat-select matNativeControl formControlName="location_of_calibration">
               <mat-option value="In Lab">In Lab</mat-option>
               <mat-option value="On Site">On Site</mat-option>
             </mat-select>
@@ -85,7 +85,7 @@
 
           <mat-form-field class="example-full-width">
             <mat-label>Select Instrument Unit</mat-label>
-            <mat-select matNativeControl required formControlName="instrument_unit">
+            <mat-select matNativeControl formControlName="instrument_unit">
               <mat-option value="°C">°C</mat-option>
               <mat-option value="Kg/cm2">Kg/cm2</mat-option>
               <mat-option value="mmHg">mmHg</mat-option>
@@ -146,8 +146,10 @@
       <div formArrayName="standard_instrument_details">
         <div *ngFor="let a of calibrationFrom.get('standard_instrument_details')['controls']; let i = index">
           <div [formGroupName]="i">
+           <div>
             <h3 class="cardHeading mt-2">Standard Instrument {{i+1}}</h3>
             <button mat-stroked-button color="accent" (click)="removeStandardInstrumentDetail(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button>
+           </div>
 
             <mat-card>
               <div class="controlers-wrapper">
@@ -171,14 +173,14 @@
               <div class="controlers-wrapper">
 
                 <mat-form-field>
-                  <input matInput readonly [matDatepicker]="picker" placeholder="Calibration Date"
+                  <input matInput [matDatepicker]="picker" placeholder="Calibration Date"
                     formControlName="standard_instrument_calibration_date">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field>
-                  <input matInput readonly [matDatepicker]="pick" placeholder="Next Calibration Due"
+                  <input matInput [matDatepicker]="pick" placeholder="Next Calibration Due"
                     formControlName="standard_instrument_next_calibration_due">
                   <mat-datepicker-toggle matSuffix [for]="pick"></mat-datepicker-toggle>
                   <mat-datepicker #pick></mat-datepicker>
@@ -195,8 +197,10 @@
       <div formArrayName="calibration_result">
         <div *ngFor="let a of calibrationFrom.get('calibration_result')['controls']; let i = index">
           <div [formGroupName]="i">
+          <div>
             <h3 class="cardHeading">Calibration Points {{i+1}}</h3>
             <button mat-stroked-button color="accent" (click)="removeCalibrationResult(i)"><mat-icon>delete</mat-icon>&nbsp; Delete {{i+1}}</button>
+          </div>
 
             <mat-card class="calibration_result">
               <div class="controlers-wrapper">

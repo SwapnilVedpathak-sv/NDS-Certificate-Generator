@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class RootService {
   constructor(public http: HttpClient) {}
 
-  readonly baseUrl = '';
+  readonly baseUrl = 'http://localhost:8000';
   readonly AllCertificate = '/ndsCertificateData';
   readonly register = '/registerUser';
   readonly login = '/loginUser';
