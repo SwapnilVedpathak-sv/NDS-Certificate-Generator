@@ -159,7 +159,7 @@ export class ListOfCertificateComponent {
 
       let docDefinition = {
         pageSize: 'A4',
-        pageMargins: [40, 40, 40, 85],
+        pageMargins: [40, 90, 40, 85],
         content: [
           //   {
           //     svg: `<svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="500px" height="5px" xml:space="preserve">
@@ -389,7 +389,7 @@ export class ListOfCertificateComponent {
 
       let dd = {
         pageSize: 'A4',
-        pageMargins: [40, 40, 40, 85],
+        pageMargins: [40, 90, 40, 85],
         content: [
           //   {
           //     svg: `<svg version="1.1" id="line_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="500px" height="5px" xml:space="preserve">
